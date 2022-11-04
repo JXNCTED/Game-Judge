@@ -1,0 +1,8 @@
+# 数据库存储位置
+dbpath=/home/laojk/Code/internal-judge/mongo/data
+# 数据库日志
+logpath=/home/laojk/Code/internal-judge/mongo/log/mongo.log
+logappend=true
+fork=true
+# 端口
+port=27017
