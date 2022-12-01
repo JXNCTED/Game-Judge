@@ -23,6 +23,7 @@ class Countdown extends React.Component<> {
             curSeconds: p.seconds,
             curPercentage: 100,
             finished: false,
+            color: p.color,
         }
     }
 
@@ -32,8 +33,8 @@ class Countdown extends React.Component<> {
             {
                 return;
             }
-            
-            const {backgroundColor, maxMinutes, maxSeconds, curMinutes, curSeconds, curPercentage, finished} = this.state
+
+            const {backgroundColor, maxMinutes, maxSeconds, curMinutes, curSeconds, curPercentage, finished, color} = this.state
 
             if (curSeconds > 0) {
                 this.setState({ curSeconds: curSeconds - 0.05 })
@@ -49,6 +50,11 @@ class Countdown extends React.Component<> {
             }
 
             this.setState({ curPercentage: this.state.finished ? 0 : 100 * (curMinutes * 60 + curSeconds) / (maxMinutes * 60 + maxSeconds)})
+
+            if (this.state.curPercentage <= 20)
+            {
+                this.setState({ color: "#000000"})
+            }
             
         }, 50)
     }
@@ -70,7 +76,7 @@ class Countdown extends React.Component<> {
         const horizontalFillingStyle = {
             height: '100%',
             width: `${this.state.curPercentage}%`,
-            backgroundColor: this.props.color,
+            backgroundColor: this.state.color,
             borderRadius: 'inherit',
         };
 
@@ -87,7 +93,7 @@ class Countdown extends React.Component<> {
         const verticalFillingStyle = {
             height: '100%',
             width: `${this.state.curPercentage}%`,
-            backgroundColor: this.props.color,
+            backgroundColor: this.state.color,
             borderRadius: 'inherit',
         };
 
