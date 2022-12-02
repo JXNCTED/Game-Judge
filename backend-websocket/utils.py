@@ -3,7 +3,7 @@ def responseMsg(category, cmd, param):
 
 def requestDecoder(request):
     data = request.split("^")
-    category = data[0]
+    category = "None" if len(data) == 0 else data[0]
     cmd = "None" if len(data) == 1 else data[1]
     param = "None" if len(data) == 2 else data[2].split("+")
     return category, cmd, param

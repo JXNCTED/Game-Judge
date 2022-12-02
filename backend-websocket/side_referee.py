@@ -27,11 +27,9 @@ class SideReferee:
                     processed = 1
             elif category == "Score":
                 if cmd == "Update" and SCORE_INDEX[param[0]] is not None:
-                    print(SCORE_INDEX[param[0]][1])
-                    writeToLog(self.logger, ['Score', self.side, {SCORE_INDEX[param[0]][0]}, SCORE_INDEX[param[0]][1]])
+                    writeToLog(self.logger, ['Score', self.side, SCORE_INDEX[param[0]][0], SCORE_INDEX[param[0]][1]])
                     processed = 1
                 elif cmd == "Modify":
-                    print(param[0])
                     writeToLog(self.logger, ['Score-Manual', self.side, "None" if len(param)==1 else param[1], param[0]])
                     processed = 1
             elif category == "Request" and cmd == "Score":

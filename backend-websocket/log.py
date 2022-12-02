@@ -2,9 +2,12 @@ from csv_logger import CsvLogger
 import logging
 
 class Logger:
-    def __init__(self, log_file):
+    def __init__(self):
+        self.header = ['Time', 'Category', 'Side', 'Event', 'Score']
+
+    def create(self, name):
         header = ['Time', 'Category', 'Side', 'Event', 'Score']
-        self.logger = CsvLogger(filename="log/" + log_file + ".csv", header=header)
+        self.logger = CsvLogger(filename="log/" + name + ".csv", header=self.header)
 
     def log(self, message):
         self.logger.info(message)
