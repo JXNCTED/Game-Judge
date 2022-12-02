@@ -34,7 +34,7 @@ class Countdown extends React.Component<> {
                 return;
             }
 
-            const {backgroundColor, maxMinutes, maxSeconds, curMinutes, curSeconds, curPercentage, finished, color} = this.state
+            const {maxMinutes, maxSeconds, curMinutes, curSeconds} = this.state
 
             if (curSeconds > 0) {
                 this.setState({ curSeconds: curSeconds - 0.05 })
