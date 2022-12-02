@@ -23,7 +23,7 @@ class Logger:
 
     def log(self, message):
         self.logger.info(message)
-        if(message[0] == "Score"):
+        if(message[0] == "Score" or message[0] == "Score-Manual"):
             self.q.put("Score")
         elif(message[0] == "Site"):
             self.q.put("Site")
