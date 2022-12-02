@@ -31,7 +31,7 @@ class SideReferee:
                     writeToLog(self.logger, ['Score-Manual', self.side, "None" if len(param)==1 else param[1], param[0]])
                     processed = 1
             elif category == "Request" and cmd == "Score":
-                await websocket.send(responseMsg("Score", "Log", self.logger.getLog(self.side, "Score")))
+                await websocket.send(responseMsg("Response", "Score", self.logger.getLog(self.side, "Score")))
                 processed = 2
 
             if processed == 0:
