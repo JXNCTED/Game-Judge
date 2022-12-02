@@ -3,52 +3,8 @@ import {Statistic, Table, Tag} from "antd";
 import {DownCircleOutlined, UpCircleOutlined} from "@ant-design/icons";
 import "./ScoreLog.css";
 
-const data = [
-    {
-        "Time":"2022/12/03 01:40:29",
-        "Side":"White",
-        "Event":"Deploy a General",
-        "Score":"10",
-        "Type":"Rule"
-    },
-    {
-        "Time":"2022/12/03 01:40:36",
-        "Side":"White",
-        "Event":"Carrier Not Staying on the Ramp",
-        "Score":"-20",
-        "Type":"Rule"
-    },
-    {
-        "Time":"2022/12/03 01:40:46",
-        "Side":"White",
-        "Event":"Deliberate striking or blocking the opponent",
-        "Score":"-20",
-        "Type":"Rule"
-    },
-    {
-        "Time":"2022/12/03 01:40:55",
-        "Side":"White",
-        "Event":"Stay on the ramp",
-        "Score":"15",
-        "Type":"Rule"
-    },
-    {
-        "Time":"2022/12/03 01:41:11",
-        "Side":"Black",
-        "Event":"Deploy a General",
-        "Score":"10",
-        "Type":"Rule"
-    },
-    {
-        "Time":"2022/12/03 01:41:13",
-        "Side":"Black",
-        "Event":"Deliberate striking or blocking the opponent",
-        "Score":"-20",
-        "Type":"Rule"
-    }
-]
-
 function ScoreLog(props) {
+    const data = props.data
     const columns = [
         {
             title: 'Time',
@@ -64,6 +20,7 @@ function ScoreLog(props) {
             title: 'Type',
             dataIndex: 'Type',
             key: 'Type',
+            width: 70,
             render: (Type) => (
                 <span>
                     <Tag color={Type==='Rule'?'green':'volcano'} key={Type}>
@@ -92,8 +49,8 @@ function ScoreLog(props) {
         },
     ];
 
-    const score = 985;
-    const addon = -50;
+    const score = data==null || data.length===0 ? 0 : data.reduce((a, b) => a + parseInt(b.Score), 0);
+    const addon = data==null || data.length===0 ? 0 : data.at(data.length-1).Score;
 
     const element = [
         <div className="score-log-score d-flex">
@@ -110,7 +67,7 @@ function ScoreLog(props) {
     return (
         <div className="score-log  d-flex flex-column" style={{width: props.width, height: props.height}}>
             <div className="score-log-header d-flex flex-row justify-content-around w-100">
-                {props.side==="black"?element:element.reverse()}
+                {props.side==="Black"?element:element.reverse()}
             </div>
             <div className="score-log-log d-flex w-100">
                 <Table columns={columns} dataSource={data} size="small" pagination={false} />
