@@ -21,7 +21,6 @@ class MainReferee:
             if category == "Admin":
                 if cmd == "Reset":
                     self.logger.create("log-"+datetime.now().strftime('%m-%dT%H:%M:%S'))
-                    # writeToLog(self.logger, ['Admin', 'Both', 'Prepare'])
                     processed = 1
                 if cmd == "Start":
                     writeToLog(self.logger, ['Admin', 'Both', 'Game'])

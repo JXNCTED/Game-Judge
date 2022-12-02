@@ -23,11 +23,11 @@ class Logger:
 
     def log(self, message):
         self.logger.info(message)
-        if(message[1] == "Score"):
+        if(message[0] == "Score"):
             self.q.put("Score")
-        elif(message[1] == "Site"):
+        elif(message[0] == "Site"):
             self.q.put("Site")
-        elif(message[1] == "Admin"):
+        elif(message[0] == "Admin"):
             self.q.put("State")
 
     def getLog(self, side, event):
@@ -40,7 +40,7 @@ class Logger:
             for i in fi:
                 res[int(i[3])]["Black" if i[2] == "Black" else "White"] += int(i[4])
             return res
-        if event == "Site":
+        if event == "State":
             fi = filter(lambda x: x[1] == "Admin", self.logger.get_logs())
             res = {"State": "Prepare", "Ready": {"Black": False, "White": False}}
             for i in fi:
@@ -48,3 +48,4 @@ class Logger:
                     res["State"] = i[3]
                 elif i[3] == "Ready":
                     res["Ready"][i[2]] = True
+            return res
