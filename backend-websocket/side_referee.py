@@ -3,13 +3,11 @@ import websockets
 from utils import *
 
 class SideReferee:
-    def __init__(self, port, side):
+    def __init__(self, port, side, logger):
         self.port = port
         self.side = side
-        self.logger = None
-
-    def setLogger(self, logger):
         self.logger = logger
+        self.webs = None
 
     async def connect(self):
         async with websockets.serve(self.run, "localhost", self.port) as websocket:

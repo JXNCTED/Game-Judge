@@ -1,23 +1,24 @@
 from log import Logger
 from side_referee import SideReferee
+from main_referee import MainReferee
 import asyncio
 from datetime import datetime
 
 
-def main():
+async def main():
     logger = Logger()
     logger.create("log-"+datetime.now().strftime('%m-%dT%H:%M:%S'))
-    refereeB = SideReferee(2222, "BLACK")
-    refereeB.setLogger(logger)
-    refereeW = SideReferee(3333, "WHITE")
-    refereeW.setLogger(logger)
+    refereeB = SideReferee(2222, "Black", logger)
+    refereeW = SideReferee(3333, "White", logger)
+    referee  = MainReferee(4444, logger)
 
     while True:
         try:
-            asyncio.get_event_loop().run_until_complete(refereeB.connect())
-            asyncio.get_event_loop().run_until_complete(refereeW.connect())
+            task1 = asyncio.create_task(refereeB.connect())
+            task2 = asyncio.create_task(refereeW.connect())
+            task3 = asyncio.create_task(referee.connect())
+            await asyncio.gather(task1, task2, task3)
         except KeyboardInterrupt:
             break
 
-if __name__ == "__main__":
-    main()
+asyncio.run(main())
