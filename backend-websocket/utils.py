@@ -17,7 +17,7 @@ def writeToLog(logger, msg):
 SCORE_INDEX = {
     'StayRampS': ['Carrier Staying on the Ramp', 10], 
     'DepSoldier': ['Deploy a Soldier', 5], 
-    'DepSoldier': ['Deploy a General', 10], 
+    'DepGeneral': ['Deploy a General', 10], 
     'OccupyZero': ['Occupying Site 0 for 1 minute', 20], 
     'StayRampE': ['Stay on the ramp', 15], 
     'Occupy': ['Occupy One Site', 80], 
