@@ -2,6 +2,7 @@ import React from "react";
 import JudgeButton from "../../components/judge_button/JudgeButton";
 import {Button, Card, message} from "antd";
 import ScoreLog from "../../components/socrelog/ScoreLog";
+import ServerList from "../../service/utils";
 
 const buttonList = {
     'StayRampS': ['Carrier Staying on the Ramp', 10],
@@ -34,7 +35,7 @@ class GamePage extends React.Component<> {
             logLoading: false,
             logData: [],
         }
-        this.ws = new WebSocket("ws://localhost:"+(props.side==='Black'?'2222':'3333'))
+        this.ws = new WebSocket(props.side==='Black'?ServerList['judge-b']:ServerList['judge-w'])
         this.ws.onmessage = (m) => {
             if (m.data.split('^')[0] === "Ack") {
                 if (m.data.split('^')[1] === "Success") {

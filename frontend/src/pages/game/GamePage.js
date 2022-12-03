@@ -1,10 +1,10 @@
 import React from "react";
 import Site from "../../components/site/Site";
 import ScoreLog from "../../components/socrelog/ScoreLog";
-// import Countdown from "../../components/countdown/Countdown";
+import ServerList from "../../service/utils";
 
 class GamePage extends React.Component<> {
-    ws = new WebSocket("ws://localhost:5555")
+    ws = new WebSocket(ServerList['view']);
 
     constructor(props) {
         super(props);
