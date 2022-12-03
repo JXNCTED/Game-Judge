@@ -9,7 +9,7 @@ class MainReferee:
         self.logger = logger
 
     async def connect(self):
-        async with websockets.serve(self.run, "localhost", self.port) as websocket:
+        async with websockets.serve(self.run, IP_ADDRESS, self.port) as websocket:
             await asyncio.Future()
 
     async def run(self, websocket):

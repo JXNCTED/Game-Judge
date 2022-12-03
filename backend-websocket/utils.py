@@ -28,7 +28,10 @@ SCORE_INDEX = {
     'Bomb': ['Engineer Taking out a Bomb', -30], 
     'CarrierOut': ['Carrier Going Out of the Field', -30], 
     'DBlocking': ['Deliberate striking or blocking the opponent', -20], 
-    'DMoving': ['Deliberate moving the other team\'s Soldier/General in Site', -30], 
+    'DMoving': ['Deliberate moving the Soldier/General of other team in Site', -30], 
     'Stepping': ['Team Member Stepping into the Field', -100], 
     'Restricted': ['Carrier Going into the Restricted Area', -30], 
 }
+
+# IP_ADDRESS = "localhost"
+IP_ADDRESS = "10.89.51.52"
