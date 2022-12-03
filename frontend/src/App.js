@@ -10,8 +10,8 @@ function App() {
             <Routes>
                 <Route path="/game" element={<GamePage />}/>
                 <Route path="/main" element={<GamePage/>}/>
-                <Route path="/black" element={<JudgePage/>}/>
-                <Route path="/white" element={<JudgePage />}/>
+                <Route path="/black" element={<JudgePage side={"Black"} />}/>
+                <Route path="/white" element={<JudgePage side={"White"} />}/>
                 <Route path="/*" element={<GamePage />}/>
             </Routes>
         </div>

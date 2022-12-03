@@ -1,4 +1,4 @@
-import { Button, Space } from 'antd';
+import { Button } from 'antd';
 import React from 'react';
 
 class JudgeButton extends React.Component {
@@ -22,13 +22,12 @@ class JudgeButton extends React.Component {
     }
 
     render() {
-        console.log(this.props.isLoading)
         return (
-            <Button type="primary" disabled={this.props.disabled} danger={this.state.isDeduct} loading={this.props.isLoading} onClick={() => this.props.onClick()}>
-                {this.state.description} ({this.state.sign}{this.state.score})
+            <Button style={{width: '100%'}} size='large' type="primary" disabled={this.props.disabled} danger={this.state.isDeduct} loading={this.props.isLoading} onClick={() => this.props.onClick()}>
+                {this.state.description}: <strong> ({this.state.sign}{this.state.score})</strong>
             </Button>)
     }
 
-};
+}
 
 export default JudgeButton;
