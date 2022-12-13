@@ -20,7 +20,7 @@ class Logger:
         self.q.queue.clear()
         header = ['Time', 'Category', 'Side', 'Event', 'Score']
         self.logger = CsvLogger(filename="log/" + name + ".csv", header=self.header)
-        self.log(['Admin', 'Both', 'Prepare', '0'])
+        # self.log(['Admin', 'Both', 'Prepare', '0'])
 
     def log(self, message):
         self.logger.info(message)
@@ -43,10 +43,14 @@ class Logger:
             return json.dumps(res)
         if event == "State":
             fi = filter(lambda x: x[1] == "Admin", self.logger.get_logs())
-            res = {"State": "Prepare", "Ready": {"Black": False, "White": False}}
+            res = {"State": "Prepare", "Team": {"Black": 0, "White": 0}, "Ready": {"Black": False, "White": False}}
             for i in fi:
                 if i[2] == "Both":
                     res["State"] = i[3]
+                    if i[3] == "Prepare":
+                        res["Team"] = {"Black": int(i[4]) // 10, "White": int(i[4]) % 10}
                 elif i[3] == "Ready":
                     res["Ready"][i[2]] = True
+            if (res["Team"]["Black"] == 0 or res["Team"]["White"] == 0):
+                res["State"] = "None"
             return json.dumps(res)

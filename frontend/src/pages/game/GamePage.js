@@ -39,7 +39,7 @@ class GamePage extends React.Component<> {
                     }
                 ],
             scoreLog: [],
-            state: 'Settle',  // Prepare, Game, Start, Settle
+            state: 'Settle',  // None, Prepare, Game, Start, Settle
             ready: 'None'  // Black, White, None, Both
         }
         this.ws.onmessage = (m) => {
@@ -65,7 +65,13 @@ class GamePage extends React.Component<> {
     }
 
     render() {
-        if (this.state.state === 'Prepare')
+        if (this.state.state === 'None')
+            return (
+                <div>
+                    PLEASE RESET THE GAME FIRST
+                </div>
+            )
+        else if (this.state.state === 'Prepare')
             return (
                 <div className={"prepare-main d-flex flex-column justify-content-between align-content-between h-100 w-100 ready-state-" + this.state.ready}>
                     <div className="prepare-main d-flex flex-column justify-content-between align-content-between">
