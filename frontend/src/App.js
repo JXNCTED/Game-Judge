@@ -6,9 +6,10 @@ import React from "react";
 
 function App() {
     return (
-        <div className="App">
+        <div className="App" style={{width: '100vw', height: '100vh'}}>
             <Routes>
                 <Route path="/game" element={<GamePage />}/>
+                <Route path="/stream" element={<GamePage />}/>
                 <Route path="/main" element={<GamePage/>}/>
                 <Route path="/black" element={<JudgePage side={"Black"} />}/>
                 <Route path="/white" element={<JudgePage side={"White"} />}/>

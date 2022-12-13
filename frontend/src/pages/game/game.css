@@ -1,0 +1,28 @@
+.game-prepare-field {
+    height: 450px;
+    transform: rotate(45deg);
+}
+.game-prepare-ready {
+    filter: grayscale(50%);
+    opacity: 0.7;
+}
+.game-prepare-not {
+    filter: grayscale(100%);
+    opacity: 0.9;
+}
+
+.ready-state-None {
+    background-color: #ddd;
+}
+
+.ready-state-Black {
+    background-image: linear-gradient(to right, #ddd , #005CAF);
+}
+
+.ready-state-White {
+    background-image: linear-gradient(to right, #7DB9DE , #ddd);
+}
+
+.ready-state-Both {
+    background-image: linear-gradient(to right, #7DB9DE , #005CAF);
+}
