@@ -39,7 +39,7 @@ class GamePage extends React.Component<> {
                     }
                 ],
             scoreLog: [],
-            state: 'Prepare',  // Prepare, Game, Start, Settle
+            state: 'Settle',  // Prepare, Game, Start, Settle
             ready: 'None'  // Black, White, None, Both
         }
         this.ws.onmessage = (m) => {
@@ -47,13 +47,18 @@ class GamePage extends React.Component<> {
                 return
             if (m.data.split('^')[1] === "Score") {
                 this.setState({
-                    scoreLog: JSON.parse(m.data.split('^')[2].replace(/'/g, '"'))
+                    scoreLog: JSON.parse(m.data.split('^')[2])
                 })
             } else if (m.data.split('^')[1] === "State") {
-
+                let temp = JSON.parse(m.data.split('^')[2])
+                console.log(temp)
+                this.setState({
+                    state: temp['State'],
+                    ready: !(temp['Ready']['Black'] || temp['Ready']['White']) ? 'None' : (temp['Ready']['Black'] && temp['Ready']['White'] ? 'Both' : (temp['Ready']['White'] ? 'White' : 'Black'))
+                })
             } else if (m.data.split('^')[1] === "Site") {
                 this.setState({
-                    site: JSON.parse(m.data.split('^')[2].replace(/'/g, '"'))
+                    site: JSON.parse(m.data.split('^')[2])
                 })
             }
         }
@@ -76,6 +81,35 @@ class GamePage extends React.Component<> {
                         </div>
                         <div>
                             <ReadyIcon teamName="The Avengers B" teamImage={g1Img} isReady={this.state.ready==='Black' || this.state.ready==='Both'} side={'Black'}/>
+                        </div>
+                    </div>
+                </div>
+            )
+        else if (this.state.state === 'Settle')
+            return (
+                <div className="game-main d-flex flex-column align-content-center" style={{width: '100%', height: '100%'}}>
+                    <h1 className='text-center m-5'>Game Settlement</h1>
+                    <div className="game-site-log d-flex flex-row justify-content-around">
+                        <div className="game-log d-flex">
+                            <ScoreLog width={500} height={800} side={"Black"} data={this.state.scoreLog.filter(x=>x["Side"]==="Black")} />
+                        </div>
+                        <div className="game-sites" style={{height: 600, width: 600}}>
+                            <div className="d-flex align-content-center flex-row w-100 h-100">
+                                <div className="d-flex flex-column justify-content-between w-100 h-100">
+                                    <Site size={180} whiteScore={this.state.site[1]["White"]} blackScore={this.state.site[1]["Black"]}/>
+                                    <Site size={180} whiteScore={this.state.site[2]["White"]} blackScore={this.state.site[2]["Black"]}/>
+                                </div>
+                                <div className="d-flex flex-column justify-content-center w-100 h-100">
+                                    <Site size={210} whiteScore={this.state.site[0]["White"]} blackScore={this.state.site[0]["Black"]}/>
+                                </div>
+                                <div className="d-flex flex-column justify-content-between w-100 h-100">
+                                    <Site size={180} whiteScore={this.state.site[3]["White"]} blackScore={this.state.site[3]["Black"]}/>
+                                    <Site size={180} whiteScore={this.state.site[4]["White"]} blackScore={this.state.site[4]["Black"]}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="game-log d-flex">
+                            <ScoreLog width={500} height={800} side={"White"} data={this.state.scoreLog.filter(x=>x["Side"]==="White")} />
                         </div>
                     </div>
                 </div>

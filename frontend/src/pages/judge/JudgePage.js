@@ -52,7 +52,7 @@ class GamePage extends React.Component<> {
             else if (m.data.split('^')[0] === "Response") {
                 this.setState({
                     logLoading: false,
-                    logData: JSON.parse(m.data.split('^')[2].replace(/'/g, '"'))
+                    logData: JSON.parse(m.data.split('^')[2])
                 })
             }
         }

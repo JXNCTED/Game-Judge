@@ -22,13 +22,13 @@ class MainReferee:
                 if cmd == "Reset":
                     self.logger.create("log-"+datetime.now().strftime('%m-%dT%H:%M:%S'))
                     processed = 1
-                if cmd == "Ready":
+                if cmd == "Game":
                     writeToLog(self.logger, ['Admin', 'Both', 'Game'])
                     processed = 1
                 if cmd == "Start":
                     writeToLog(self.logger, ['Admin', 'Both', 'Start'])
                     processed = 1
-                if cmd == "Finish":
+                if cmd == "Settle":
                     writeToLog(self.logger, ['Admin', 'Both', 'Settle'])
                     processed = 1
             elif category == "Site":
