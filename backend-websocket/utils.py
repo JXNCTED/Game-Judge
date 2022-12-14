@@ -33,5 +33,5 @@ SCORE_INDEX = {
     'Restricted': ['Carrier Going into the Restricted Area', -30], 
 }
 
-# IP_ADDRESS = "localhost"
-IP_ADDRESS = "10.89.51.52"
+IP_ADDRESS = "localhost"
+# IP_ADDRESS = "10.89.51.52"
