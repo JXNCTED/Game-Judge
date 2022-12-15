@@ -91,13 +91,13 @@ class GamePage extends React.Component<> {
                     </div>
                     <div className='d-flex flex-row justify-content-between m-4'>
                         <div>
-                            <ReadyIcon teamName={teamInfo[this.state.whiteID].name} teamImage={this.imgSet[this.state.whiteID]} isReady={this.state.ready==='White' || this.state.ready==='Both'} side={'White'}/>
+                            <ReadyIcon teamName={teamInfo[this.state.blackID].name} teamImage={this.imgSet[this.state.blackID]} isReady={this.state.ready==='Black' || this.state.ready==='Both'} side={'Black'}/>
                         </div>
                         <div>
                             <img alt={"field"} src={field} className={'game-prepare-field' + (this.state.ready==='Both' ? ' game-prepare-ready' : ' game-prepare-not')}/>
                         </div>
                         <div>
-                            <ReadyIcon teamName={teamInfo[this.state.blackID].name} teamImage={this.imgSet[this.state.whiteID]} isReady={this.state.ready==='Black' || this.state.ready==='Both'} side={'Black'}/>
+                            <ReadyIcon teamName={teamInfo[this.state.whiteID].name} teamImage={this.imgSet[this.state.whiteID]} isReady={this.state.ready==='White' || this.state.ready==='Both'} side={'White'}/>
                         </div>
                     </div>
                 </div>
@@ -136,8 +136,8 @@ class GamePage extends React.Component<> {
                 <div className="game-main" style={{width: '100%', height: '100%'}}>
                     <div className='d-flex flex-column game-body'>
                         <div className='d-flex flex-row game-bar justify-content-around m-4'>
-                            <TeamIcon side={'White'} teamName={teamInfo[this.state.whiteID].name} teamImage={this.imgSet[this.state.whiteID]} />
                             <TeamIcon side={'Black'} teamName={teamInfo[this.state.blackID].name} teamImage={this.imgSet[this.state.blackID]} />
+                            <TeamIcon side={'White'} teamName={teamInfo[this.state.whiteID].name} teamImage={this.imgSet[this.state.whiteID]} />
                         </div>
                         <div className="game-site-log d-flex flex-row justify-content-around">
                             <div className="game-log d-flex">
