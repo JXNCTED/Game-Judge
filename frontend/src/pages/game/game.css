@@ -16,13 +16,13 @@
 }
 
 .ready-state-Black {
-    background-image: linear-gradient(to right, #ddd , #005CAF);
+    background-image: linear-gradient(to left, #ddd , #005CAF);
 }
 
 .ready-state-White {
-    background-image: linear-gradient(to right, #7DB9DE , #ddd);
+    background-image: linear-gradient(to left, #7DB9DE , #ddd);
 }
 
 .ready-state-Both {
-    background-image: linear-gradient(to right, #7DB9DE , #005CAF);
+    background-image: linear-gradient(to left, #7DB9DE , #005CAF);
 }

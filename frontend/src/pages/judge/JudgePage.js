@@ -1,13 +1,13 @@
 import React from "react";
 import JudgeButton from "../../components/judge_button/JudgeButton";
-import {Button, Card, message} from "antd";
+import {Button, Card, message, Modal} from "antd";
 import ScoreLog from "../../components/socrelog/ScoreLog";
 import ServerList from "../../service/utils";
 
 const buttonList = {
     'StayRampS': ['Carrier Staying on the Ramp', 10],
-    'DepSoldier': ['Deploy a Soldier', 5],
-    'DepGeneral': ['Deploy a General', 10],
+    // 'DepSoldier': ['Deploy a Soldier', 5],
+    // 'DepGeneral': ['Deploy a General', 10],
     'OccupyZero': ['Occupying Site 0 for 1 minute', 20],
     'StayRampE': ['Stay on the ramp', 15],
     'Occupy': ['Occupy One Site', 80],
@@ -23,17 +23,23 @@ const buttonList = {
     'Restricted': ['Carrier in the Restricted Area', -30],
 }
 
+const siteList = {
+    'DepSoldier': ['Deploy a Soldier', 5, 101],
+    'DepGeneral': ['Deploy a General', 10, 102],
+    'RecSoldier': ['Recall a Soldier', -5, 201],
+    'RecGeneral': ['Recall a General', -10, 202],
+}
+
 class GamePage extends React.Component<> {
     constructor(props) {
         super(props);
         this.numButtons = Object.keys(buttonList).length;
         this.state = {
-            isLoadings: Array.from({length: this.numButtons + 1}, () => false),
-            isDsiableds: Array.from({length: this.numButtons + 1}, () => false),
-            number: 1,
+            isLoading: false,
             requestingIndex: -1,
             logLoading: false,
             logData: [],
+            popupIndex: -1,
         }
         this.ws = new WebSocket(props.side === 'Black' ? ServerList['judge-b'] : ServerList['judge-w'])
         this.ws.onmessage = (m) => {
@@ -59,36 +65,22 @@ class GamePage extends React.Component<> {
         }
     }
 
-    onLoaded(index) {
-        const {isLoadings, isDsiableds} = this.state;
-        if (this.state.requestingIndex !== -1) isLoadings[index] = false;
-
-        // wake all other buttons up
-        for (let i = 0; i < this.numButtons; i++) {
-            isDsiableds[i] = false;
-        }
-        this.setState({isLoadings: isLoadings, isDsiableds: isDsiableds, requestingIndex: -1});
+    onLoaded() {
+        this.setState({
+            isLoading: false,
+            requestingIndex: -1,
+        })
     }
 
     onClicked(index, name) {
-
-        const {isLoadings, isDsiableds} = this.state;
-
-        // only take reaction if not disabled or loading
-        if (isDsiableds[index] === true || isLoadings[index] === true) return;
-        isLoadings[index] = true;
-        // if operation succeeds, set all other buttons as disabled
-        for (let i = 0; i < this.numButtons; i++) {
-            isDsiableds[i] = i !== index;
-        }
-        this.setState({isLoadings: isLoadings, isDsiableds: isDsiableds, requestingIndex: index})
+        this.setState({isLoading: true, requestingIndex: index})
         this.ws.send("Score^Update^" + name)
         setTimeout(() => {
             if (this.state.requestingIndex === index) {
                 message.error(name + ' Timeout')
-                this.onLoaded(index)
+                this.onLoaded()
             }
-        }, 10000);
+        }, 5000);
     }
 
     onLogLoad() {
@@ -99,36 +91,47 @@ class GamePage extends React.Component<> {
     }
 
     onTeamReady() {
-        const {isLoadings, isDsiableds} = this.state;
-        isLoadings[this.numButtons] = true;
-        isDsiableds.fill(true);
-        isDsiableds[this.numButtons] = false;
         this.setState({
-            isLoadings: isLoadings,
-            isDsiableds: isDsiableds,
+            isLoading: true,
             requestingIndex: this.numButtons-1
         })
         this.ws.send("Admin^Ready")
         setTimeout(() => {
             if (this.state.requestingIndex === this.numButtons-1) {
                 message.error('Set to Ready Timeout!')
-                this.onLoaded(this.numButtons-1)
+                this.onLoaded()
             }
-        }, 10000);
+        }, 5000);
+    }
+
+    onSiteClicked = (site) => {
+        let index = this.state.popupIndex
+        let key = Object.keys(siteList)[index]
+        this.setState({popupIndex: -1})
+        this.onClicked(siteList[key][2], key)
     }
 
     render() {
         return (<div className="judge-main">
+            <Modal title="Select Site" open={this.state.popupIndex >= 0} onCancel={()=>this.setState({popupIndex: -1})} footer={null} width={800}>
+                <h2>BE CAREFUL WHEN YOU SELECT THE SITE</h2>
+                <h4>The consequences of a mistaken choice can be <strong>irreparable</strong></h4>
+                <div className='d-flex flex-row justify-content-around'>
+                    {[...Array(5).keys()].map((i) => {
+                        return <Button style={{width: 120}} className='m-2' size='large' key={i} onClick={()=>this.onSiteClicked(i)} type='primary'>Site-<strong>{i}</strong></Button>
+                    })}
+                </div>
+            </Modal>
             <div className="judge-buttons">
                 <div className="d-flex align-content-center flex-row w-100 h-100 flex-fill">
                     <div className="d-flex flex-row">
                         <div className="d-flex flex-column">
-                            <Card className="m-2" title={<h2>Reward</h2>} style={{width: 400}}>
+                            <Card size='small' className="m-2" title={<h4>Reward</h4>} style={{width: 370}}>
                                 <div className="d-flex flex-column">
                                     {Object.keys(buttonList).map((key, index) => {
                                         if (buttonList[key][1] > 0) return (<div className="m-2">
-                                            <JudgeButton disabled={this.state.isDsiableds[index]}
-                                                         isLoading={this.state.isLoadings[index]}
+                                            <JudgeButton disabled={false}
+                                                         isLoading={this.state.isLoading}
                                                          description={buttonList[key][0]} isDeduct={false}
                                                          score={buttonList[key][1]}
                                                          onClick={() => this.onClicked(index, key)}/>
@@ -137,7 +140,24 @@ class GamePage extends React.Component<> {
                                     })}
                                 </div>
                             </Card>
-                            <Card className="m-2" title={<h2>Reward</h2>} style={{width: 400}}>
+                            <Card size='small' className="m-2" title={<h4>Site</h4>} style={{width: 370}}>
+                                <div className="d-flex flex-column">
+                                    {Object.keys(siteList).map((key, index) => {
+                                        return (
+                                            <div className="m-2">
+                                                <JudgeButton disabled={false}
+                                                             isLoading={this.state.isLoading}
+                                                             description={siteList[key][0]} isDeduct={siteList[key][1] < 0}
+                                                             score={Math.abs(siteList[key][1])}
+                                                             onClick={() => this.setState({popupIndex: index})}/>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </Card>
+                        </div>
+                        <div className="d-flex flex-column">
+                            <Card size='small' className="m-2" title={<h4>Preparation</h4>} style={{width: 370}}>
                                 <div className="d-flex flex-column">
                                     <Button type='primary' className='m-3' size='large' loading={this.state.requestingIndex === this.numButtons-1}
                                             onClick={() => this.onTeamReady()}>
@@ -145,21 +165,21 @@ class GamePage extends React.Component<> {
                                     </Button>
                                 </div>
                             </Card>
+                            <Card size='small' className="m-2" title={<h4>Penalty</h4>} style={{width: 370}}>
+                                <div className="d-flex flex-column">
+                                    {Object.keys(buttonList).map((key, index) => {
+                                        if (buttonList[key][1] < 0) return (<div className="m-2">
+                                            <JudgeButton disabled={false}
+                                                         isLoading={this.state.isLoading}
+                                                         description={buttonList[key][0]} isDeduct={true}
+                                                         score={-buttonList[key][1]}
+                                                         onClick={() => this.onClicked(index, key)}/>
+                                        </div>)
+                                        else return null
+                                    })}
+                                </div>
+                            </Card>
                         </div>
-                        <Card className="m-2" title={<h2>Penalty</h2>} style={{width: 400}}>
-                            <div className="d-flex flex-column">
-                                {Object.keys(buttonList).map((key, index) => {
-                                    if (buttonList[key][1] < 0) return (<div className="m-2">
-                                        <JudgeButton disabled={this.state.isDsiableds[index]}
-                                                     isLoading={this.state.isLoadings[index]}
-                                                     description={buttonList[key][0]} isDeduct={true}
-                                                     score={-buttonList[key][1]}
-                                                     onClick={() => this.onClicked(index, key)}/>
-                                    </div>)
-                                    else return null
-                                })}
-                            </div>
-                        </Card>
                     </div>
                     <div className='m-2 d-flex flex-column'>
                         <Button type={'primary'} className='m-3' size='large' loading={this.state.logLoading}
