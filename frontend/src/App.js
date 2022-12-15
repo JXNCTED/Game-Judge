@@ -3,6 +3,7 @@ import GamePage from "./pages/game/GamePage";
 import JudgePage from "./pages/judge/JudgePage";
 import {Route, Routes} from "react-router-dom";
 import React from "react";
+import MajorJudgePage from "./pages/judge/MajorJudgePage";
 
 function App() {
     return (
@@ -10,7 +11,8 @@ function App() {
             <Routes>
                 <Route path="/game" element={<GamePage />}/>
                 <Route path="/stream" element={<GamePage />}/>
-                <Route path="/main" element={<GamePage/>}/>
+                <Route path="/main-black" element={<MajorJudgePage side={"Black"}/>}/>
+                <Route path="/main-white" element={<MajorJudgePage side={"White"}/>}/>
                 <Route path="/black" element={<JudgePage side={"Black"} />}/>
                 <Route path="/white" element={<JudgePage side={"White"} />}/>
                 <Route path="/*" element={<GamePage />}/>

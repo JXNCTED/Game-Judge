@@ -1,5 +1,5 @@
 import React from "react";
-import {Statistic, Table, Tag} from "antd";
+import {Button, Statistic, Table, Tag} from "antd";
 import {DownCircleOutlined, UpCircleOutlined} from "@ant-design/icons";
 import "./ScoreLog.css";
 
@@ -48,6 +48,19 @@ function ScoreLog(props) {
             )
         },
     ];
+
+    if (props.recallBtn != null) {
+        columns.push({
+            title: 'Recall',
+            dataIndex: 'Recall',
+            key: 'Recall',
+            render: (_, __, ind) => (
+                <span>
+                    <Button danger onClick={() => props.recallBtn(ind)}>Recall</Button>
+                </span>
+            )
+        })
+    }
 
     const score = data==null || data.length===0 ? 0 : data.reduce((a, b) => a + parseInt(b.Score), 0);
     const addon = data==null || data.length===0 ? 0 : data.at(data.length-1).Score;
