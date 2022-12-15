@@ -160,6 +160,7 @@ class MajorJudge extends React.Component<> {
                         <div className='major-change-score'>
                             <Card className="m-2" title={<h2>Modify Score</h2>}>
                                 <div>
+                                    <h5 style={{marginBottom: 30}}>Do <strong>NOT</strong> Recall Soldier or General Here</h5>
                                     <Form onFinish={this.onChangeScore} ref={this.formRef}>
                                         <Form.Item name="score" label="Score" rules={[{required: true}]}>
                                             <InputNumber />

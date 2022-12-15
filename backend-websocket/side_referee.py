@@ -40,6 +40,13 @@ class SideReferee:
                 if cmd == "Settle":
                     writeToLog(self.logger, ['Admin', 'Both', 'Settle'])
                     processed = 1
+            elif category == "Site":
+                if cmd == "Add":
+                    writeToLog(self.logger, ['Site', param[0], param[1], 1 if param[2]=="Soldier" else 3])
+                    processed = 1
+                if cmd == "Remove":
+                    writeToLog(self.logger, ['Site', param[0], param[1], -1 if param[2]=="Soldier" else -3])
+                    processed = 1
             elif category == "Score":
                 if cmd == "Update" and SCORE_INDEX[param[0]] is not None:
                     writeToLog(self.logger, ['Score', self.side, SCORE_INDEX[param[0]][0], SCORE_INDEX[param[0]][1]])

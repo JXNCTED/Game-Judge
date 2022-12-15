@@ -24,10 +24,10 @@ const buttonList = {
 }
 
 const siteList = {
-    'DepSoldier': ['Deploy a Soldier', 5, 101],
-    'DepGeneral': ['Deploy a General', 10, 102],
-    'RecSoldier': ['Recall a Soldier', -5, 201],
-    'RecGeneral': ['Recall a General', -10, 202],
+    'DepSoldier': ['Deploy a Soldier', 5, 101, 'Soldier'],
+    'DepGeneral': ['Deploy a General', 10, 102, 'General'],
+    'RecSoldier': ['Recall a Soldier', -5, 201, 'Soldier'],
+    'RecGeneral': ['Recall a General', -10, 202, 'General'],
 }
 
 class GamePage extends React.Component<> {
@@ -49,9 +49,9 @@ class GamePage extends React.Component<> {
                 } else {
                     message.error('Invalid Request')
                 }
+                this.onLogLoad()
                 setTimeout(() => {
                     this.onLoaded(this.state.requestingIndex)
-                    this.onLogLoad()
                 }, 1000);
             } else if (m.data.split('^')[0] === "Response") {
                 this.setState({
@@ -109,6 +109,7 @@ class GamePage extends React.Component<> {
         let key = Object.keys(siteList)[index]
         this.setState({popupIndex: -1})
         this.onClicked(siteList[key][2], key)
+        this.ws.send(`Site^${siteList[key][1]>0?'Add':'Remove'}^${this.props.side}+${site}+${siteList[key][3]}`)
     }
 
     render() {
