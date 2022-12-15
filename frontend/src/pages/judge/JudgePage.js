@@ -109,7 +109,9 @@ class GamePage extends React.Component<> {
         let key = Object.keys(siteList)[index]
         this.setState({popupIndex: -1})
         this.onClicked(siteList[key][2], key)
-        this.ws.send(`Site^${siteList[key][1]>0?'Add':'Remove'}^${this.props.side}+${site}+${siteList[key][3]}`)
+        setTimeout(() => {
+            this.ws.send(`Site^${siteList[key][1]>0?'Add':'Remove'}^${this.props.side}+${site}+${siteList[key][3]}`)
+        }, 500);
     }
 
     render() {
