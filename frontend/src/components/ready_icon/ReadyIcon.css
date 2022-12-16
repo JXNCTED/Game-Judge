@@ -73,11 +73,11 @@
 }
 
 .img-ready {
-    filter: grayscale(0%);
+    filter: grayscale(0%) saturate(130%);
 }
 
 .img-not-ready {
-    filter: grayscale(75%);
+    filter: grayscale(95%) saturate(20%);
 }
 
 .img-black {

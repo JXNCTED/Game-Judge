@@ -47,4 +47,9 @@ class Display:
             if message == None:
                 continue
             await self.broadcast(message)
+            if item == "State":
+                await asyncio.sleep(0.1)
+                await self.broadcast(responseMsg("Response", "Site", self.logger.getLog("", "Site")))
+                await asyncio.sleep(0.1)
+                await self.broadcast(responseMsg("Response", "Score", self.logger.getLog("Both", "Score")))
     

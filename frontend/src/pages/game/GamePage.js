@@ -83,7 +83,11 @@ class GamePage extends React.Component<> {
                 })
                 if (temp['State'] === 'Start') {
                     this.setState({
-                        startTime: Date.now()
+                        gameTime: 5 * 60,
+                        gameTimeMS: 5 * 60 * 1000,
+                        startTime: Date.now(),
+                        whiteSoldier: 5,
+                        blackSoldier: 5,
                     })
                 }
             } else if (m.data.split('^')[1] === "Site") {
@@ -162,7 +166,7 @@ class GamePage extends React.Component<> {
                             <ReadyIcon teamName={teamInfo[this.state.blackID].name}
                                        teamImage={this.imgSet[this.state.blackID]} display={true}
                                        isReady={whiteTotal < blackTotal} side={'Black'}/>
-                            <h2 className='text-center m-2'>Total Score: {blackTotal}</h2>
+                            <h2 className='text-center m-2'>Total Score: <strong style={{fontSize: 50}}>{blackTotal}</strong></h2>
                         </div>
                         <div className="game-sites" style={{height: 600, width: 600}}>
                             <div className="d-flex align-content-center flex-row w-100 h-100">
@@ -189,7 +193,7 @@ class GamePage extends React.Component<> {
                             <ReadyIcon teamName={teamInfo[this.state.whiteID].name}
                                        teamImage={this.imgSet[this.state.whiteID]} display={true}
                                        isReady={whiteTotal > blackTotal} side={'White'}/>
-                            <h2 className='text-center m-2'>Total Score: {whiteTotal}</h2>
+                            <h2 className='text-center m-2'>Total Score: <strong style={{fontSize: 50}}>{whiteTotal}</strong></h2>
                         </div>
                     </div>
                     <h1 className='text-center m-5'>Please Check and Confirm Your Score Log with the Major Judge</h1>
