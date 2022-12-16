@@ -150,7 +150,7 @@ class GamePage extends React.Component<> {
                     <h1 className='text-center m-5'>Game Settlement</h1>
                     <div className="game-site-log d-flex flex-row justify-content-around">
                         <div className="game-log d-flex">
-                            <ScoreLog width={500} height={800} side={"Black"}
+                            <ScoreLog width={500} height={700} side={"Black"}
                                       data={this.state.scoreLog.filter(x => x["Side"] === "Black")}/>
                         </div>
                         <div className="game-sites" style={{height: 600, width: 600}}>
@@ -174,7 +174,7 @@ class GamePage extends React.Component<> {
                             </div>
                         </div>
                         <div className="game-log d-flex">
-                            <ScoreLog width={500} height={800} side={"White"}
+                            <ScoreLog width={500} height={700} side={"White"}
                                       data={this.state.scoreLog.filter(x => x["Side"] === "White")}/>
                         </div>
                     </div>

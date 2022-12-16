@@ -10,6 +10,7 @@ function ScoreLog(props) {
             title: 'Time',
             dataIndex: 'Time',
             key: 'Time',
+            width: 80,
             render: (Time) => (
                 <span>
                     {Time.split(" ")[1]}
@@ -33,12 +34,12 @@ function ScoreLog(props) {
             title: 'Event',
             dataIndex: 'Event',
             key: 'Event',
-            width: 350
         },
         {
             title: 'Score',
             dataIndex: 'Score',
             key: 'Score',
+            width: 80,
             render: (Score) => (
                 <span>
                     <Tag style={{width: 50}} color={Score>0?'green':'geekblue'} key={Score}>
@@ -83,7 +84,7 @@ function ScoreLog(props) {
                 {props.side==="Black"?element:element.reverse()}
             </div>
             <div className="score-log-log d-flex w-100">
-                <Table columns={columns} dataSource={data} size="small" pagination={false} />
+                <Table columns={columns} dataSource={data.reverse()} size="small" pagination={false} scroll={{y: 550}} />
             </div>
         </div>
     )
