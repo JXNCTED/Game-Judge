@@ -33,6 +33,6 @@ There are four pages in the system:
 - Everytime you set a new score, please double check with the display page
 
 ## Contact
-Major Developer: [ZHANG Jiekai](jzhanger@connect.ust.hk)  
-Developer: [IKEMURA Kei](kikemura@connect.ust.hk)  
-Developer: [Wang Junzhe](jwanggj@connect.ust.hk)
+Major Developer: [ZHANG Jiekai](mailto://jzhanger@connect.ust.hk)  
+Developer: [IKEMURA Kei](mailto://kikemura@connect.ust.hk)  
+Developer: [Wang Junzhe](mailto://jwanggj@connect.ust.hk)
