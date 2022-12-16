@@ -65,6 +65,8 @@ class GamePage extends React.Component<> {
             startTime: Date.now(),
             whiteSoldier: 5,
             blackSoldier: 5,
+            site0Host: 'None',
+            site0Time: 0,
         }
         this.ws.onmessage = (m) => {
             if (m.data === "TESTING")
@@ -88,12 +90,21 @@ class GamePage extends React.Component<> {
                         startTime: Date.now(),
                         whiteSoldier: 5,
                         blackSoldier: 5,
+                        site0Host: 'None',
+                        site0Time: 0,
                     })
                 }
             } else if (m.data.split('^')[1] === "Site") {
+                let data = JSON.parse(m.data.split('^')[2])
+                let newHost = data[0]['Black']===data[0]['White'] ? 'None' : (data[0]['Black'] > data[0]['White'] ? 'Black' : 'White')
                 this.setState({
-                    site: JSON.parse(m.data.split('^')[2])
+                    site: data,
                 })
+                if (this.state.site0Host !== newHost)
+                    this.setState({
+                        site0Host: newHost,
+                        site0Time: this.state.gameTime
+                    })
             }
         }
     }
@@ -114,6 +125,12 @@ class GamePage extends React.Component<> {
             this.setState({
                 gameTimeMS: time
             })
+        }
+        if (this.state.site0Host!=='None' && 60-this.state.site0Time+parseInt(time / 1000) === 0) {
+            this.setState({
+                site0Time: parseInt(time / 1000)
+            })
+            this.ws.send("Score^Update^" + this.state.site0Host)
         }
     }
 
@@ -232,6 +249,8 @@ class GamePage extends React.Component<> {
                                     <div className="d-flex flex-column justify-content-center w-100 h-100">
                                         <Site size={210} whiteScore={this.state.site[0]["White"]}
                                               blackScore={this.state.site[0]["Black"]}/>
+                                        <CountBar backgroundColor={'#f0f0f0'} color={this.state.site0Host==='White' ? "#7DB9DE" : this.state.site0Host==='Black' ? "#005CAF" : "#f0f0f0"} size={190}
+                                                  curSeconds={this.state.site0Host==='None'?60:(60-this.state.site0Time+this.state.gameTime)} maxSeconds={60} isVertical={false}/>
                                     </div>
                                     <div className="d-flex flex-column justify-content-between w-100 h-100">
                                         <Site size={180} whiteScore={this.state.site[3]["White"]}
