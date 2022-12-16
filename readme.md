@@ -9,10 +9,11 @@ There are four pages in the system:
 
 ## How to use
 0. Set the team logo and name in the `frontend/src/assets/teaminfo.json` file
-1. Set the IP for both backend and frontend in the `util` folder  
+1. Set the IP for both backend and frontend in each `util` folder  
 2. Run the backend server by `python backend-websocket/main.py`
 3. Run the frontend server by `npm run start` in the `frontend` folder
-4. Open the browser and go to the following pages
+4. Open the browser and go to the following pages  
+
 |  Page   | Route  |
 |  ----  | ----  |
 | Display  | / |
@@ -22,7 +23,7 @@ There are four pages in the system:
 | White Main Judge  | /main-white |
 | Black Main Judge  | /main-black |
 
-## Imoprtant Notice
+## Imoprtant Notice (READ BEFORE USE)
 - If rerun the backend server, all the frontend pages should be refreshed
 - ONLY ONE display page is allowed to be opened
 - When counting down, do NOT refresh the display page otherwise the countdown will be reset
