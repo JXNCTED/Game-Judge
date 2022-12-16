@@ -34,5 +34,5 @@ There are four pages in the system:
 
 ## Contact
 Major Developer: [ZHANG Jiekai](jzhanger@connect.ust.hk)  
-Developer: [IKEMURA Kei](kikemura@connect.ust.hk)
+Developer: [IKEMURA Kei](kikemura@connect.ust.hk)  
 Developer: [Wang Junzhe](jwanggj@connect.ust.hk)
