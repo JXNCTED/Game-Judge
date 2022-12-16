@@ -6,7 +6,8 @@ import ReadyIcon from "../../components/ready_icon/ReadyIcon";
 import TeamIcon from "../../components/team_icon/TeamIcon";
 import teamInfo from "../../assets/teaminfo.json";
 import field from "../../assets/field.png";
-import {LoadingOutlined} from "@ant-design/icons";
+import {ClockCircleOutlined, LeftCircleOutlined, LoadingOutlined, RightCircleOutlined} from "@ant-design/icons";
+import {Statistic} from 'antd';
 
 import team1 from "../../assets/team1.png";
 import team2 from "../../assets/team2.png";
@@ -14,6 +15,9 @@ import team3 from "../../assets/team3.png";
 import team4 from "../../assets/team4.png";
 
 import './game.css'
+import CountBar from "../../components/countdown/CountBar";
+
+const {Countdown} = Statistic;
 
 class GamePage extends React.Component<> {
     ws = new WebSocket(ServerList['view']);
@@ -49,10 +53,15 @@ class GamePage extends React.Component<> {
             state: 'None',  // None, Prepare, Game, Start, Settle
             ready: 'None',  // Black, White, None, Both
             whiteID: -1,
-            blackID: -1
+            blackID: -1,
+            gameTime: 5 * 60,
+            gameTimeMS: 5 * 60 * 1000,
+            startTime: Date.now(),
+            whiteSoldier: 5,
+            blackSoldier: 5,
         }
         this.ws.onmessage = (m) => {
-            if(m.data === "TESTING")
+            if (m.data === "TESTING")
                 return
             if (m.data.split('^')[1] === "Score") {
                 this.setState({
@@ -60,18 +69,41 @@ class GamePage extends React.Component<> {
                 })
             } else if (m.data.split('^')[1] === "State") {
                 let temp = JSON.parse(m.data.split('^')[2])
-                console.log(temp)
                 this.setState({
                     state: temp['State'],
                     ready: !(temp['Ready']['Black'] || temp['Ready']['White']) ? 'None' : (temp['Ready']['Black'] && temp['Ready']['White'] ? 'Both' : (temp['Ready']['White'] ? 'White' : 'Black')),
-                    whiteID: temp['Team']['White']-1,
-                    blackID: temp['Team']['Black']-1
+                    whiteID: temp['Team']['White'] - 1,
+                    blackID: temp['Team']['Black'] - 1
                 })
+                if (temp['State'] === 'Start') {
+                    this.setState({
+                        startTime: Date.now()
+                    })
+                }
             } else if (m.data.split('^')[1] === "Site") {
                 this.setState({
                     site: JSON.parse(m.data.split('^')[2])
                 })
             }
+        }
+    }
+
+    timeChange = (time) => {
+        if (parseInt(time / 1000) !== this.state.gameTime) {
+            if (parseInt(time / 1000) % 30 === 0) {
+                this.setState({
+                    whiteSoldier: this.state.whiteSoldier + 1,
+                    blackSoldier: this.state.blackSoldier + 1
+                })
+            }
+            this.setState({
+                gameTime: parseInt(time / 1000)
+            })
+        }
+        if (this.state.gameTimeMS - time > 30) {
+            this.setState({
+                gameTimeMS: time
+            })
         }
     }
 
@@ -84,49 +116,66 @@ class GamePage extends React.Component<> {
             )
         else if (this.state.state === 'Prepare')
             return (
-                <div className={"prepare-main d-flex flex-column justify-content-between align-content-between h-100 w-100 ready-state-" + this.state.ready}>
+                <div
+                    className={"prepare-main d-flex flex-column justify-content-between align-content-between h-100 w-100 ready-state-" + this.state.ready}>
                     <div className="prepare-main d-flex flex-column justify-content-between align-content-between">
                         <h1 className='text-center' style={{marginTop: 30}}>Preparation Stage</h1>
-                        <h3 className='text-center' style={{marginTop: 50}}><LoadingOutlined style={{marginRight: 30}} />Waiting for the command ...</h3>
+                        <h3 className='text-center' style={{marginTop: 50}}><LoadingOutlined style={{marginRight: 30}}/>Waiting
+                            for the command ...</h3>
                     </div>
                     <div className='d-flex flex-row justify-content-between m-4'>
                         <div>
-                            <ReadyIcon teamName={teamInfo[this.state.blackID].name} teamImage={this.imgSet[this.state.blackID]} isReady={this.state.ready==='Black' || this.state.ready==='Both'} side={'Black'}/>
+                            <ReadyIcon teamName={teamInfo[this.state.blackID].name}
+                                       teamImage={this.imgSet[this.state.blackID]}
+                                       isReady={this.state.ready === 'Black' || this.state.ready === 'Both'}
+                                       side={'Black'}/>
                         </div>
                         <div>
-                            <img alt={"field"} src={field} className={'game-prepare-field' + (this.state.ready==='Both' ? ' game-prepare-ready' : ' game-prepare-not')}/>
+                            <img alt={"field"} src={field}
+                                 className={'game-prepare-field' + (this.state.ready === 'Both' ? ' game-prepare-ready' : ' game-prepare-not')}/>
                         </div>
                         <div>
-                            <ReadyIcon teamName={teamInfo[this.state.whiteID].name} teamImage={this.imgSet[this.state.whiteID]} isReady={this.state.ready==='White' || this.state.ready==='Both'} side={'White'}/>
+                            <ReadyIcon teamName={teamInfo[this.state.whiteID].name}
+                                       teamImage={this.imgSet[this.state.whiteID]}
+                                       isReady={this.state.ready === 'White' || this.state.ready === 'Both'}
+                                       side={'White'}/>
                         </div>
                     </div>
                 </div>
             )
         else if (this.state.state === 'Settle')
             return (
-                <div className="game-main d-flex flex-column align-content-center" style={{width: '100%', height: '100%'}}>
+                <div className="game-main d-flex flex-column align-content-center"
+                     style={{width: '100%', height: '100%'}}>
                     <h1 className='text-center m-5'>Game Settlement</h1>
                     <div className="game-site-log d-flex flex-row justify-content-around">
                         <div className="game-log d-flex">
-                            <ScoreLog width={500} height={800} side={"Black"} data={this.state.scoreLog.filter(x=>x["Side"]==="Black")} />
+                            <ScoreLog width={500} height={800} side={"Black"}
+                                      data={this.state.scoreLog.filter(x => x["Side"] === "Black")}/>
                         </div>
                         <div className="game-sites" style={{height: 600, width: 600}}>
                             <div className="d-flex align-content-center flex-row w-100 h-100">
                                 <div className="d-flex flex-column justify-content-between w-100 h-100">
-                                    <Site size={180} whiteScore={this.state.site[1]["White"]} blackScore={this.state.site[1]["Black"]}/>
-                                    <Site size={180} whiteScore={this.state.site[2]["White"]} blackScore={this.state.site[2]["Black"]}/>
+                                    <Site size={180} whiteScore={this.state.site[1]["White"]}
+                                          blackScore={this.state.site[1]["Black"]}/>
+                                    <Site size={180} whiteScore={this.state.site[2]["White"]}
+                                          blackScore={this.state.site[2]["Black"]}/>
                                 </div>
                                 <div className="d-flex flex-column justify-content-center w-100 h-100">
-                                    <Site size={210} whiteScore={this.state.site[0]["White"]} blackScore={this.state.site[0]["Black"]}/>
+                                    <Site size={210} whiteScore={this.state.site[0]["White"]}
+                                          blackScore={this.state.site[0]["Black"]}/>
                                 </div>
                                 <div className="d-flex flex-column justify-content-between w-100 h-100">
-                                    <Site size={180} whiteScore={this.state.site[3]["White"]} blackScore={this.state.site[3]["Black"]}/>
-                                    <Site size={180} whiteScore={this.state.site[4]["White"]} blackScore={this.state.site[4]["Black"]}/>
+                                    <Site size={180} whiteScore={this.state.site[3]["White"]}
+                                          blackScore={this.state.site[3]["Black"]}/>
+                                    <Site size={180} whiteScore={this.state.site[4]["White"]}
+                                          blackScore={this.state.site[4]["Black"]}/>
                                 </div>
                             </div>
                         </div>
                         <div className="game-log d-flex">
-                            <ScoreLog width={500} height={800} side={"White"} data={this.state.scoreLog.filter(x=>x["Side"]==="White")} />
+                            <ScoreLog width={500} height={800} side={"White"}
+                                      data={this.state.scoreLog.filter(x => x["Side"] === "White")}/>
                         </div>
                     </div>
                 </div>
@@ -136,30 +185,69 @@ class GamePage extends React.Component<> {
                 <div className="game-main" style={{width: '100%', height: '100%'}}>
                     <div className='d-flex flex-column game-body'>
                         <div className='d-flex flex-row game-bar justify-content-around m-4'>
-                            <TeamIcon side={'Black'} teamName={teamInfo[this.state.blackID].name} teamImage={this.imgSet[this.state.blackID]} />
-                            <TeamIcon side={'White'} teamName={teamInfo[this.state.whiteID].name} teamImage={this.imgSet[this.state.whiteID]} />
+                            <TeamIcon side={'Black'} teamName={teamInfo[this.state.blackID].name}
+                                      teamImage={this.imgSet[this.state.blackID]}/>
+                            {this.state.state === "Start" &&
+                                <Countdown valueStyle={{fontSize: 50}} prefix={<ClockCircleOutlined/>}
+                                           title={<h3 className='text-center'>Game Time</h3>}
+                                           value={this.state.startTime + 5 * 60 * 1000} format="mm:ss"
+                                           onChange={this.timeChange}/>}
+                            <TeamIcon side={'White'} teamName={teamInfo[this.state.whiteID].name}
+                                      teamImage={this.imgSet[this.state.whiteID]}/>
                         </div>
                         <div className="game-site-log d-flex flex-row justify-content-around">
                             <div className="game-log d-flex">
-                                <ScoreLog width={500} height={800} side={"Black"} data={this.state.scoreLog.filter(x=>x["Side"]==="Black")} />
+                                <ScoreLog width={500} height={680} side={"Black"}
+                                          data={this.state.scoreLog.filter(x => x["Side"] === "Black")}/>
                             </div>
-                            <div className="game-sites" style={{height: 600, width: 600}}>
+                            <CountBar backgroundColor={'#69B0AC'} color={'#00896C'} size={500}
+                                      curSeconds={(this.state.gameTimeMS%(1000*30)) / 1000} maxSeconds={30} isVertical={true}/>
+                            <div className="game-sites" style={{height: 600, width: 680}}>
                                 <div className="d-flex align-content-center flex-row w-100 h-100">
                                     <div className="d-flex flex-column justify-content-between w-100 h-100">
-                                        <Site size={180} whiteScore={this.state.site[1]["White"]} blackScore={this.state.site[1]["Black"]}/>
-                                        <Site size={180} whiteScore={this.state.site[2]["White"]} blackScore={this.state.site[2]["Black"]}/>
+                                        <Site size={180} whiteScore={this.state.site[1]["White"]}
+                                              blackScore={this.state.site[1]["Black"]}/>
+                                        <Site size={180} whiteScore={this.state.site[2]["White"]}
+                                              blackScore={this.state.site[2]["Black"]}/>
                                     </div>
                                     <div className="d-flex flex-column justify-content-center w-100 h-100">
-                                        <Site size={210} whiteScore={this.state.site[0]["White"]} blackScore={this.state.site[0]["Black"]}/>
+                                        <Site size={210} whiteScore={this.state.site[0]["White"]}
+                                              blackScore={this.state.site[0]["Black"]}/>
                                     </div>
                                     <div className="d-flex flex-column justify-content-between w-100 h-100">
-                                        <Site size={180} whiteScore={this.state.site[3]["White"]} blackScore={this.state.site[3]["Black"]}/>
-                                        <Site size={180} whiteScore={this.state.site[4]["White"]} blackScore={this.state.site[4]["Black"]}/>
+                                        <Site size={180} whiteScore={this.state.site[3]["White"]}
+                                              blackScore={this.state.site[3]["Black"]}/>
+                                        <Site size={180} whiteScore={this.state.site[4]["White"]}
+                                              blackScore={this.state.site[4]["Black"]}/>
                                     </div>
                                 </div>
                             </div>
+                            <CountBar backgroundColor={'#69B0AC'} color={'#00896C'} size={500}
+                                      curSeconds={(this.state.gameTimeMS%(1000*30)) / 1000} maxSeconds={30} isVertical={true}/>
                             <div className="game-log d-flex">
-                                <ScoreLog width={500} height={800} side={"White"} data={this.state.scoreLog.filter(x=>x["Side"]==="White")} />
+                                <ScoreLog width={500} height={680} side={"White"}
+                                          data={this.state.scoreLog.filter(x => x["Side"] === "White")}/>
+                            </div>
+                        </div>
+                        <div className='d-flex flex-row game-bottom justify-content-around m-2'>
+                            <div>
+                                <Statistic title="Soldier Generated" suffix={<LeftCircleOutlined style={{marginLeft: 10}}/>}
+                                           prefix={<RightCircleOutlined style={{marginRight: 10}}/>} value={this.state.blackSoldier}
+                                           valueStyle={{textAlign: 'center', fontSize: 35}}/>
+                            </div>
+                            <div className='d-flex flex-column'>
+                                <h3 className='text-center'><LoadingOutlined
+                                    style={{marginRight: 15}}/>{this.state.gameTime % 60 > 20 ? 'Engineer Working in Progress' : 'Battle Lab Refilling'}
+                                </h3>
+                                <CountBar backgroundColor={this.state.gameTime % 60 > 20 ? '#DC9FB4' : '#B5CAA0'}
+                                          color={this.state.gameTime % 60 > 20 ? '#E83015' : '#91AD70'} size={500}
+                                          curSeconds={this.state.gameTime % 60 > 20 ? (this.state.gameTimeMS % (60 * 1000)) / 1000 - 20 : (this.state.gameTimeMS % (60 * 1000)) / 1000}
+                                          maxSeconds={this.state.gameTime % 60 > 20 ? 40 : 20} isVertical={false}/>
+                            </div>
+                            <div>
+                                <Statistic title="Soldier Generated" suffix={<LeftCircleOutlined style={{marginLeft: 10}}/>}
+                                           prefix={<RightCircleOutlined style={{marginRight: 10}}/>} value={this.state.whiteSoldier}
+                                           valueStyle={{textAlign: 'center', fontSize: 35}}/>
                             </div>
                         </div>
                     </div>

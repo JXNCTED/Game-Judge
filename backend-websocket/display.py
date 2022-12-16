@@ -47,5 +47,4 @@ class Display:
             if message == None:
                 continue
             await self.broadcast(message)
-                
     

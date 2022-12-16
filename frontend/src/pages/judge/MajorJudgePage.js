@@ -120,20 +120,20 @@ class MajorJudge extends React.Component<> {
     render() {
         return (
             <div>
-                <div className='d-flex flex-row'>
+                <div className='d-flex flex-row justify-content-around'>
                     <div className='d-flex flex-column'>
-                        <div className='major-set-state' style={{width: 400}}>
+                        <div className='major-set-state' style={{width: 450}}>
                             <Card className="m-2" title={<h2>Change State</h2>}>
                                 <Card size='small'>
                                     <Form layout="inline" onFinish={this.onReset}>
-                                        <Form.Item label='Black' name='black' style={{marginLeft: 15}}>
+                                        <Form.Item label='Black' name='black' style={{marginLeft: 15}} rules={[{required: true, message: '?说话?'}]}>
                                             <Select style={{width: 80}}>
                                                 {options.map((item) => {
                                                     return <Select.Option value={item.value}>{item.label}</Select.Option>
                                                 })}
                                             </Select>
                                         </Form.Item>
-                                        <Form.Item label='White' name='white'>
+                                        <Form.Item label='White' name='white' rules={[{required: true, message: '?说话?'}]}>
                                             <Select style={{width: 80}}>
                                                 {options.map((item) => {
                                                     return <Select.Option value={item.value}>{item.label}</Select.Option>
@@ -157,7 +157,7 @@ class MajorJudge extends React.Component<> {
                                 </Button>
                             </Card>
                         </div>
-                        <div className='major-change-score'>
+                        <div className='major-change-score' style={{width: 450}}>
                             <Card className="m-2" title={<h2>Modify Score</h2>}>
                                 <div>
                                     <h5 style={{marginBottom: 30}}>Do <strong>NOT</strong> Recall Soldier or General Here</h5>
