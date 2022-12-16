@@ -6,7 +6,13 @@ import ReadyIcon from "../../components/ready_icon/ReadyIcon";
 import TeamIcon from "../../components/team_icon/TeamIcon";
 import teamInfo from "../../assets/teaminfo.json";
 import field from "../../assets/field.png";
-import {ClockCircleOutlined, LeftCircleOutlined, LoadingOutlined, RightCircleOutlined} from "@ant-design/icons";
+import {
+    CheckCircleOutlined,
+    ClockCircleOutlined, CloseCircleOutlined,
+    LeftCircleOutlined,
+    LoadingOutlined,
+    RightCircleOutlined, RightOutlined
+} from "@ant-design/icons";
 import {Statistic} from 'antd';
 
 import team1 from "../../assets/team1.png";
@@ -143,15 +149,20 @@ class GamePage extends React.Component<> {
                     </div>
                 </div>
             )
-        else if (this.state.state === 'Settle')
+        else if (this.state.state === 'Settle') {
+            let whiteTotal = this.state.scoreLog.filter(x => x["Side"] === "White").reduce((a, b) => a + parseInt(b["Score"]), 0)
+            let blackTotal = this.state.scoreLog.filter(x => x["Side"] === "Black").reduce((a, b) => a + parseInt(b["Score"]), 0)
             return (
                 <div className="game-main d-flex flex-column align-content-center"
                      style={{width: '100%', height: '100%'}}>
-                    <h1 className='text-center m-5'>Game Settlement</h1>
+                    <h1 className='text-center m-5'>Game Settlement <RightOutlined /> Winner: <strong>{whiteTotal < blackTotal ? teamInfo[this.state.blackID].name : (whiteTotal > blackTotal ? teamInfo[this.state.whiteID].name : 'NONE')}</strong></h1>
                     <div className="game-site-log d-flex flex-row justify-content-around">
-                        <div className="game-log d-flex">
-                            <ScoreLog width={500} height={700} side={"Black"}
-                                      data={this.state.scoreLog.filter(x => x["Side"] === "Black")}/>
+                        <div className="game-log d-flex flex-column justify-content-center">
+                            <div className='text-center w-100' style={{fontSize: 60}}> {whiteTotal < blackTotal ? <CheckCircleOutlined style={{color: '#4CAF50'}}/> : <CloseCircleOutlined style={{color: '#F44336'}}/>} </div>
+                            <ReadyIcon teamName={teamInfo[this.state.blackID].name}
+                                       teamImage={this.imgSet[this.state.blackID]} display={true}
+                                       isReady={whiteTotal < blackTotal} side={'Black'}/>
+                            <h2 className='text-center m-2'>Total Score: {blackTotal}</h2>
                         </div>
                         <div className="game-sites" style={{height: 600, width: 600}}>
                             <div className="d-flex align-content-center flex-row w-100 h-100">
@@ -173,14 +184,18 @@ class GamePage extends React.Component<> {
                                 </div>
                             </div>
                         </div>
-                        <div className="game-log d-flex">
-                            <ScoreLog width={500} height={700} side={"White"}
-                                      data={this.state.scoreLog.filter(x => x["Side"] === "White")}/>
+                        <div className="game-log d-flex flex-column">
+                            <div className='text-center w-100' style={{fontSize: 60}}> {whiteTotal > blackTotal ? <CheckCircleOutlined style={{color: '#4CAF50'}}/> : <CloseCircleOutlined style={{color: '#F44336'}}/>} </div>
+                            <ReadyIcon teamName={teamInfo[this.state.whiteID].name}
+                                       teamImage={this.imgSet[this.state.whiteID]} display={true}
+                                       isReady={whiteTotal > blackTotal} side={'White'}/>
+                            <h2 className='text-center m-2'>Total Score: {whiteTotal}</h2>
                         </div>
                     </div>
+                    <h1 className='text-center m-5'>Please Check and Confirm Your Score Log with the Major Judge</h1>
                 </div>
             )
-        else
+        }else
             return (
                 <div className="game-main" style={{width: '100%', height: '100%'}}>
                     <div className='d-flex flex-column game-body'>
