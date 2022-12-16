@@ -69,7 +69,7 @@ class Countdown extends React.Component<> {
             width: this.props.size,
             backgroundColor: this.state.backgroundColor,
             borderRadius: 10,
-            margin: 50,
+            margin: 8,
             display: 'flex', justifyContent: 'center', alignItems: 'center',
         };
 
@@ -85,12 +85,12 @@ class Countdown extends React.Component<> {
             width: this.props.size,
             backgroundColor: this.state.backgroundColor,
             borderRadius: 10,
-            margin: 50,
+            margin: 40,
             display: 'flex', justifyContent: 'right', alignItems: 'right',
             transform: 'rotate(90deg)',
         };
 
-        const verticalFillingStyle = {
+        const verticalFillingStyle = { 
             height: '100%',
             width: `${this.state.curPercentage}%`,
             backgroundColor: this.state.color,
