@@ -18,19 +18,21 @@ function ReadyIcon(props) {
                     <i className="fa fa-arrow-left"></i>
                 </div>
             </h2>
-            <div className="team-status">
-                {props.isReady ? (
-                    <span>
-                        <CheckCircleOutlined style={{color: '#4CAF50'}}/>
-                        <strong>Team is ready!</strong>
-                    </span>
-                            ) : (
-                    <span>
-                        <CloseCircleOutlined style={{color: '#F44336'}}/>
-                        Team is under preparation.
-                    </span>
-                )}
-            </div>
+            {props.display==null &&
+                <div className="team-status">
+                    {props.isReady ? (
+                        <span>
+                            <CheckCircleOutlined style={{color: '#4CAF50'}}/>
+                            <strong>Team is ready!</strong>
+                        </span>
+                                ) : (
+                        <span>
+                            <CloseCircleOutlined style={{color: '#F44336'}}/>
+                            Team is under preparation.
+                        </span>
+                    )}
+                </div>
+            }
         </div>
     );
 }

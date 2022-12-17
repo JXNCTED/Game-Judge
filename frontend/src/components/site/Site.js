@@ -27,19 +27,19 @@ class Site extends React.Component<> {
                     aspectRatio: 1
                 }}>
                     <div className="d-flex flex-row justify-content-center align-items-center w-100 h-100">
-                        <div className="site-white-score" style={{
-                            fontSize: this.state.whiteScore > this.state.blackScore ? 50 : 30,
-                            color: "white"
-                        }}>{this.state.whiteScore}</div>
+                        <div className="site-black-score" style={{
+                            fontSize: this.state.whiteScore < this.state.blackScore ? 70 : 45,
+                            color: "black"
+                        }}>{this.state.blackScore}</div>
                         <div className="site-delimiter" style={{
-                            fontSize: 50,
+                            fontSize: 80,
                             color: this.state.whiteScore > this.state.blackScore ? "white" : this.state.whiteScore < this.state.blackScore ? "black" : "#91989F"
                         }}>/
                         </div>
-                        <div className="site-black-score" style={{
-                            fontSize: this.state.whiteScore < this.state.blackScore ? 50 : 30,
-                            color: "black"
-                        }}>{this.state.blackScore}</div>
+                        <div className="site-white-score" style={{
+                            fontSize: this.state.whiteScore > this.state.blackScore ? 70 : 45,
+                            color: "white"
+                        }}>{this.state.whiteScore}</div>
                     </div>
                 </div>
             </div>

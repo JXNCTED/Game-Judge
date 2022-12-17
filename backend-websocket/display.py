@@ -23,7 +23,14 @@ class Display:
         await websocket.send(responseMsg("Response", "Score", self.logger.getLog("Both", "Score")))
         self.clients.add(websocket)
         try:
-            await websocket.wait_closed()
+            while True: 
+                request = await websocket.recv()
+                category, cmd, param = requestDecoder(request)
+                print(f"Received: {category} {cmd} {param}")
+                if category == "Score":
+                    if cmd == "Update":
+                        writeToLog(self.logger, ['Score', param[0], SCORE_INDEX['OccupyZero'][0], SCORE_INDEX['OccupyZero'][1]])
+            # await websocket.wait_closed()
         finally:
             self.clients.remove(websocket)
 
@@ -47,5 +54,9 @@ class Display:
             if message == None:
                 continue
             await self.broadcast(message)
-                
+            if item == "State":
+                await asyncio.sleep(0.1)
+                await self.broadcast(responseMsg("Response", "Site", self.logger.getLog("", "Site")))
+                await asyncio.sleep(0.1)
+                await self.broadcast(responseMsg("Response", "Score", self.logger.getLog("Both", "Score")))
     

@@ -11,16 +11,16 @@ async def main():
     logger.create("log-"+datetime.now().strftime('%m-%dT%H:%M:%S'))
     refereeB = SideReferee(2222, "Black", logger)
     refereeW = SideReferee(3333, "White", logger)
-    referee  = MainReferee(4444, logger)
+    # referee  = MainReferee(4444, logger)
     display  = Display(5555, logger)
 
     while True:
         try:
             task1 = asyncio.create_task(refereeB.connect())
             task2 = asyncio.create_task(refereeW.connect())
-            task3 = asyncio.create_task(referee.connect())
+            # task3 = asyncio.create_task(referee.connect())
             task4 = asyncio.create_task(display.connect())
-            await asyncio.gather(task1, task2, task3, task4)
+            await asyncio.gather(task1, task2, task4)
         except KeyboardInterrupt:
             break
 
