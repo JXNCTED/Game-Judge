@@ -298,30 +298,4 @@ class GamePage extends React.Component<> {
 
 }
 
-const styles = {
-    timerRect: {
-        width: '160px',
-        height: '60px',
-        background: "blue",
-    },
-
-    teamBlackRect: {
-        width: '120px',
-        height: '90px',
-        background: "black",
-    },
-
-    teamWhiteRect: {
-        width: '120px',
-        height: '90px',
-        background: "white",
-    },
-
-    mainView: {
-        width: '900px',
-        height: '735px',
-        background: "#00FF00",
-    },
-}
-
 export default GamePage

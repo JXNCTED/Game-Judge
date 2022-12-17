@@ -1,0 +1,26 @@
+.bigblue {
+  color: black;
+  padding: 40px;
+  font-family: Arial;
+  text-align: center;
+}
+
+.rectangle {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background: black;
+}
+
+.intro {
+  background-image: url('../../../public/UI2.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+ -webkit-background-size: contain;
+ -moz-background-size: contain;
+ -o-background-size: contain;
+  background-size: contain;
+  color: black;
+  height: 100vh;
+  width: 100vw;
+}
