@@ -1,0 +1,85 @@
+.team-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-display img {
+    height: 450px;
+    /*border-radius: 50%;*/
+    margin-right: 10px;
+}
+
+.team-display h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+.team-display .auxiliary-graphics {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.team-display .auxiliary-graphics.before {
+    margin-right: 10px;
+}
+
+.team-display .auxiliary-graphics.after {
+    margin-left: 10px;
+}
+
+.team-display .graphics {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #eee;
+    font-size: 20px;
+    color: #333;
+    margin-left: 10px;
+}
+
+.team-display .graphics-1 {
+    transform: rotate(45deg);
+}
+
+.team-display .graphics-2 {
+    transform: rotate(-45deg);
+}
+
+.team-display .team-status {
+    margin-left: 10px;
+}
+
+.team-display .team-status span {
+    display: flex;
+    align-items: center;
+}
+
+.team-display .team-status .anticon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.team-display .team-status .ant-check-circle-outline {
+    color: #4CAF50;
+}
+
+.team-display .team-status .ant-close-circle-outline {
+    color: #F44336;
+}
+
+.img-ready {
+    filter: grayscale(0%);
+}
+
+.img-not-ready {
+    filter: grayscale(75%);
+}
+
+.img-black {
+    transform: scaleX(-1);
+}

@@ -1,0 +1,16 @@
+.game-team-display {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.game-team-display img {
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.game-team-display h1 {
+    font-size: 36px;
+    margin: 0;
+}

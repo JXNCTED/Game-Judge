@@ -1,0 +1,29 @@
+Time,Category,Side,Event,Score
+2022/12/16 20:06:37,Admin,Both,Prepare,12
+2022/12/16 20:06:57,Admin,Both,Game,0
+2022/12/16 20:06:59,Admin,Both,Start,0
+2022/12/16 20:07:06,Score,White,Deploy a Soldier,5
+2022/12/16 20:07:07,Site,White,2,1
+2022/12/16 20:07:08,Score,Black,Deploy a Soldier,5
+2022/12/16 20:07:08,Site,Black,4,1
+2022/12/16 20:07:11,Score,White,Deploy a Soldier,5
+2022/12/16 20:07:12,Site,White,2,1
+2022/12/16 20:07:21,Score,Black,Deploy a Soldier,5
+2022/12/16 20:07:22,Site,Black,2,1
+2022/12/16 20:07:25,Score,Black,Deploy a Soldier,5
+2022/12/16 20:07:25,Site,Black,4,1
+2022/12/16 20:07:33,Score,Black,Deploy a Soldier,5
+2022/12/16 20:07:34,Site,Black,2,1
+2022/12/16 20:07:35,Score,White,Deploy a Soldier,5
+2022/12/16 20:07:35,Site,White,4,1
+2022/12/16 20:07:41,Score,Black,Deploy a Soldier,5
+2022/12/16 20:07:41,Site,Black,2,1
+2022/12/16 20:07:48,Score,White,Deploy a Soldier,5
+2022/12/16 20:07:48,Site,White,2,1
+2022/12/16 20:07:58,Score,White,Recall a Soldier,-5
+2022/12/16 20:07:58,Site,White,2,-1
+2022/12/16 20:08:03,Score,Black,Deploy a Soldier,5
+2022/12/16 20:08:03,Site,Black,2,1
+2022/12/16 20:08:27,Score,Black,Deploy a Soldier,5
+2022/12/16 20:08:27,Site,Black,2,1
+2022/12/16 20:11:00,Score,Black,Deliberate striking or blocking the opponent,-20

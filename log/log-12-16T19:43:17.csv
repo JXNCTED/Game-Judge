@@ -1,0 +1,22 @@
+Time,Category,Side,Event,Score
+2022/12/16 19:46:47,Score,Black,Carrier Staying on the Ramp,10
+2022/12/16 19:46:58,Score,Black,Technical Pause for 1 min,-10
+2022/12/16 19:48:11,Admin,Black,Ready,0
+2022/12/16 19:48:44,Admin,White,Ready,0
+2022/12/16 19:48:48,Score,White,Carrier Staying on the Ramp,10
+2022/12/16 19:48:49,Score,White,Occupying Site 0 for 1 minute,20
+2022/12/16 19:48:52,Score,White,Stay on the ramp,15
+2022/12/16 19:48:55,Score,White,Occupy One Site,80
+2022/12/16 19:49:02,Score,White,Deploy a Soldier,5
+2022/12/16 19:49:03,Site,White,1,1
+2022/12/16 19:49:05,Score,White,Deploy a General,10
+2022/12/16 19:49:06,Site,White,4,3
+2022/12/16 19:49:09,Admin,Both,Start,0
+2022/12/16 19:49:10,Score,White,Recall a Soldier,-5
+2022/12/16 19:49:10,Site,White,1,-1
+2022/12/16 19:49:10,Admin,Both,Start,0
+2022/12/16 19:49:12,Score,White,Recall a General,-10
+2022/12/16 19:49:13,Site,White,2,-3
+2022/12/16 19:49:16,Score,White,Recall a General,-10
+2022/12/16 19:49:16,Site,White,3,-3
+2022/12/16 19:49:16,Admin,Both,Game,0

@@ -21,14 +21,18 @@ class MainReferee:
             if category == "Admin":
                 if cmd == "Reset":
                     self.logger.create("log-"+datetime.now().strftime('%m-%dT%H:%M:%S'))
+                    if (param == 'None'): 
+                        writeToLog(self.logger, ['Admin', 'Both', 'Prepare', 0])
+                    else: 
+                        writeToLog(self.logger, ['Admin', 'Both', 'Prepare', int(param[0])*10+int(param[1])])
                     processed = 1
-                if cmd == "Ready":
+                if cmd == "Game":
                     writeToLog(self.logger, ['Admin', 'Both', 'Game'])
                     processed = 1
                 if cmd == "Start":
                     writeToLog(self.logger, ['Admin', 'Both', 'Start'])
                     processed = 1
-                if cmd == "Finish":
+                if cmd == "Settle":
                     writeToLog(self.logger, ['Admin', 'Both', 'Settle'])
                     processed = 1
             elif category == "Site":

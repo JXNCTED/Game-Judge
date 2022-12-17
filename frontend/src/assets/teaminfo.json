@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Team AAA",
+    "image": "team1.png"
+  },
+  {
+    "id": 2,
+    "name": "Team BBB",
+    "image": "team2.png"
+  },
+  {
+    "id": 3,
+    "name": "Team CCC",
+    "image": "team3.png"
+  },
+  {
+    "id": 4,
+    "name": "Team DDD",
+    "image": "team4.png"
+  }
+]

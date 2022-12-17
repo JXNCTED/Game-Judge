@@ -1,0 +1,36 @@
+Time,Category,Side,Event,Score
+2022/12/16 20:47:21,Admin,Both,Prepare,12
+2022/12/16 20:47:24,Admin,Black,Ready,0
+2022/12/16 20:47:28,Admin,White,Ready,0
+2022/12/16 20:48:07,Admin,Black,Ready,0
+2022/12/16 20:48:07,Admin,Both,Game,0
+2022/12/16 20:48:09,Admin,Both,Start,0
+2022/12/16 20:48:16,Score,Black,Carrier Going into the Restricted Area,-30
+2022/12/16 20:48:25,Score,White,Deploy a General,10
+2022/12/16 20:48:26,Site,White,2,3
+2022/12/16 20:48:31,Score-Manual,Black,RECALL Carrier Going into the Restricted Area,30
+2022/12/16 20:48:31,Score,Black,Deploy a Soldier,5
+2022/12/16 20:48:32,Site,Black,2,1
+2022/12/16 20:48:34,Score,Black,Deploy a Soldier,5
+2022/12/16 20:48:35,Site,Black,2,1
+2022/12/16 20:48:45,Score,Black,Deploy a Soldier,5
+2022/12/16 20:48:46,Site,Black,3,1
+2022/12/16 20:48:48,Score,Black,Deploy a Soldier,5
+2022/12/16 20:48:49,Site,Black,4,1
+2022/12/16 20:48:56,Score,Black,Deploy a General,10
+2022/12/16 20:48:56,Site,Black,2,3
+2022/12/16 20:49:00,Score,Black,Recall a Soldier,-5
+2022/12/16 20:49:00,Score,White,Deliberate striking or blocking the opponent,-20
+2022/12/16 20:49:00,Site,Black,3,-1
+2022/12/16 20:49:03,Score,Black,Deploy a Soldier,5
+2022/12/16 20:49:04,Site,Black,2,1
+2022/12/16 20:49:06,Score,White,Deploy a Soldier,5
+2022/12/16 20:49:06,Site,White,2,1
+2022/12/16 20:49:11,Score,Black,Recall a Soldier,-5
+2022/12/16 20:49:12,Site,Black,2,-1
+2022/12/16 20:49:15,Score,Black,Deploy a General,10
+2022/12/16 20:49:15,Site,Black,2,3
+2022/12/16 20:49:18,Score,Black,Deploy a Soldier,5
+2022/12/16 20:49:18,Site,Black,2,1
+2022/12/16 20:49:21,Score,White,Deploy a Soldier,5
+2022/12/16 20:49:21,Site,White,2,1

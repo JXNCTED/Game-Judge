@@ -16,8 +16,6 @@ def writeToLog(logger, msg):
 
 SCORE_INDEX = {
     'StayRampS': ['Carrier Staying on the Ramp', 10], 
-    'DepSoldier': ['Deploy a Soldier', 5], 
-    'DepGeneral': ['Deploy a General', 10], 
     'OccupyZero': ['Occupying Site 0 for 1 minute', 20], 
     'StayRampE': ['Stay on the ramp', 15], 
     'Occupy': ['Occupy One Site', 80], 
@@ -31,6 +29,11 @@ SCORE_INDEX = {
     'DMoving': ['Deliberate moving the Soldier/General of other team in Site', -30], 
     'Stepping': ['Team Member Stepping into the Field', -100], 
     'Restricted': ['Carrier Going into the Restricted Area', -30], 
+
+    'DepSoldier': ['Deploy a Soldier', 5], 
+    'DepGeneral': ['Deploy a General', 10], 
+    'RecSoldier': ['Recall a Soldier', -5], 
+    'RecGeneral': ['Recall a General', -10],
 }
 
 # IP_ADDRESS = "localhost"
