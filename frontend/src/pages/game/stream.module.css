@@ -16,11 +16,27 @@
   background-image: url('../../../public/UI2.jpg');
   background-repeat: no-repeat;
   background-position: center center;
- -webkit-background-size: contain;
- -moz-background-size: contain;
- -o-background-size: contain;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
   background-size: contain;
   color: black;
   height: 100vh;
   width: 100vw;
+}
+
+.fadeOut {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  transition: width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s;
+
+}
+
+.fadeIn {
+  opacity: 1;
+  width: 100px;
+  height: 100px;
+  transition: width 0.5s, height 0.5s, opacity 0.5s 0.5s;
+
 }

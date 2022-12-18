@@ -24,6 +24,10 @@ import team4 from "../../assets/team4.png";
 import styles from './stream.module.css'
 import CountBar from "../../components/countdown/CountBar";
 
+import engineerShutdown from "../../assets/engineerShutdown.png";
+import engineerWakeup from "../../assets/engineerWakeup.png";
+import explode from "../../assets/explode1.gif";
+
 const { Countdown } = Statistic;
 
 class StreamPage extends React.Component<> {
@@ -72,6 +76,13 @@ class StreamPage extends React.Component<> {
             site0Time: 0,
             numPages: null,
             pageNumber: 1,
+
+            // icon states
+            engineerShutdownVisible: false,
+            whiteBomb: false,
+            blackBomb: false,
+            flashCount: 0,
+            flashShowIcon: false,
         }
 
         this.ws.onmessage = (m) => {
@@ -126,6 +137,7 @@ class StreamPage extends React.Component<> {
     }
 
     timeChange = (time) => {
+        this.state.flashCount = this.state.flashCount + 1;
         if (this.state.state === "Start") {
             if (parseInt(time / 1000) !== this.state.gameTime) {
                 if (parseInt(time / 1000) % 30 === 0) {
@@ -134,6 +146,20 @@ class StreamPage extends React.Component<> {
                         blackSoldier: this.state.blackSoldier + 1
                     })
                 }
+
+                // engineer wake-up/shutdown logics
+                if (parseInt(time / 1000) % 5 === 0) {
+                    let setValue = ~this.state.engineerShutdownVisible;
+                    this.setState({ engineerShutdownVisible: setValue })
+                }
+
+                // debug explosion
+                console.log("bomb", this.state.blackBomb)
+                if (parseInt(time / 1000) % 5 === 0) {
+                    let setValue = !this.state.blackBomb
+                    this.setState({ blackBomb: setValue })
+                }
+
                 this.setState({
                     gameTime: parseInt(time / 1000)
                 })
@@ -143,6 +169,8 @@ class StreamPage extends React.Component<> {
                     gameTimeMS: time
                 })
             }
+
+
         } else if (this.state.state === "Prepare") {
             this.setState({
                 prepTime: parseInt(time / 1000)
@@ -165,20 +193,20 @@ class StreamPage extends React.Component<> {
 
                     <div className={styles.intro}>
                         <div className="d-flex flex-row justify-content-center" style={
-                            { paddingTop: 190}
-                    
+                            { paddingTop: 190 }
+
                         }>
 
                         </div>
 
-                        <div className="d-flex flex-row justify-content-center cameraOutput" style={{ paddingTop: 100, marginLeft: 15}}>
+                        <div className="d-flex flex-row justify-content-center cameraOutput" style={{ paddingTop: 100, marginLeft: 15 }}>
                             <div style={{ backgroundColor: "#00FF00", width: 500, height: 430, marginRight: 16 }}></div>
                             <CountBar backgroundColor={'#f0f0f0'} color={"#4040F0"} size={420}
                                 curSeconds={this.state.prepTime} maxSeconds={180} isVertical={true} />
                             <div style={{ backgroundColor: "#00FF00", width: 500, height: 430, marginLeft: 16 }}></div>
                         </div>
 
-                        <div className="d-flex flex-row justify-content-center" style={{ paddingTop: 40 , marginLeft: 26}}>
+                        <div className="d-flex flex-row justify-content-center" style={{ paddingTop: 40, marginLeft: 26 }}>
                             <div className="d-flex flex-row justify-content-center align-items-center" style={{ backgroundColor: "#FFFFFF", width: 200, height: 90, borderRadius: 20 }}>
                                 <Countdown title="" valueStyle={{ fontSize: 60 }} value={this.state.prepStartTime + 180 * 1000} format="mm:ss" onChange={this.timeChange} />
                             </div>
@@ -207,19 +235,19 @@ class StreamPage extends React.Component<> {
                             <div className="d-flex align-content-center flex-row w-100 h-100">
                                 <div className="d-flex flex-column justify-content-between w-100 h-100">
                                     <Site size={180} whiteScore={this.state.site[1]["White"]}
-                                        blackScore={this.state.site[1]["Black"]} />
+                                        blackScore={this.state.site[1]["Black"]} fontSizeDivider={5} />
                                     <Site size={180} whiteScore={this.state.site[2]["White"]}
-                                        blackScore={this.state.site[2]["Black"]} />
+                                        blackScore={this.state.site[2]["Black"]} fontSizeDivider={5} />
                                 </div>
                                 <div className="d-flex flex-column justify-content-center w-100 h-100">
                                     <Site size={210} whiteScore={this.state.site[0]["White"]}
-                                        blackScore={this.state.site[0]["Black"]} />
+                                        blackScore={this.state.site[0]["Black"]} fontSizeDivider={5} />
                                 </div>
                                 <div className="d-flex flex-column justify-content-between w-100 h-100">
                                     <Site size={180} whiteScore={this.state.site[3]["White"]}
-                                        blackScore={this.state.site[3]["Black"]} />
+                                        blackScore={this.state.site[3]["Black"]} fontSizeDivider={5} />
                                     <Site size={180} whiteScore={this.state.site[4]["White"]}
-                                        blackScore={this.state.site[4]["Black"]} />
+                                        blackScore={this.state.site[4]["Black"]} fontSizeDivider={5} />
                                 </div>
                             </div>
                         </div>
@@ -236,17 +264,22 @@ class StreamPage extends React.Component<> {
             )
         } else // in game
         {
+            if (this.state.flashCount % 25 === 0) {
+                this.state.flashShowIcon = !this.state.flashShowIcon;
+            }
+            const siteSize = 80;
+            // console.log("flash count:", this.state.flashCount)
             let whiteTotal = this.state.scoreLog.filter(x => x["Side"] === "White").reduce((a, b) => a + parseInt(b["Score"]), 0)
             let blackTotal = this.state.scoreLog.filter(x => x["Side"] === "Black").reduce((a, b) => a + parseInt(b["Score"]), 0)
             console.log(this.state.gameTime)
             return (
-                <div className="game-main" style={{ width: '100%', height: '100%', backgroundColor: "#00FF00", paddingTop: 10 }}>
+                <div className="game-main" style={{ width: '100%', height: '100%', backgroundColor: "#00FF00", paddingTop: 5 }}>
 
                     <div className='d-flex flex-row justify-content-between m-3 first-row'>
 
                         <div className="d-flex flex-column justify-content-start align-items-center">
-                            <TeamIcon side={'Black'} teamName={teamInfo[this.state.blackID].name}
-                                teamImage={this.imgSet[this.state.blackID]} />
+                            {/* <TeamIcon side={'Black'} teamName={teamInfo[this.state.blackID].name}
+                                teamImage={this.imgSet[this.state.blackID]} /> */}
 
                             <Statistic style={{ marginLeft: 10, marginTop: 10 }} suffix={<LeftCircleOutlined style={{ marginLeft: 10 }} />}
                                 prefix={<RightCircleOutlined style={{ marginRight: 10 }} />} value={whiteTotal}
@@ -257,24 +290,28 @@ class StreamPage extends React.Component<> {
                         <div className="d-flex flex-column justify-content-center align-items-center title">
 
                             <h3> RM2023 Internal Competition Match -</h3>
+                            <div className="d-flex flex-row justify-content-center" style={{ width: 120, height: 50, borderRadius: 5, backgroundColor: "#FFFFFF", fontWeight: "bold" }}>
+                                {this.state.state === "Start" && <Countdown title="" valueStyle={{ fontSize: 30 }} value={this.state.startTime + 300 * 1000} onChange={this.timeChange} format="mm:ss" />}
+                                {this.state.state === "Game" && <div style={{ fontSize: 30 }}><b>05:00</b></div>}
 
-                            {this.state.state === "Start" && <Countdown title="" valueStyle={{ fontSize: 30 }} value={this.state.startTime + 300 * 1000} onChange={this.timeChange} format="mm:ss" />}
-                            {this.state.state === "Game" && <div style={{ fontSize: 30 }}>05:00</div>}
+                            </div>
 
                             <CountBar backgroundColor={'#f0f0f0'} color={"#0F2F89"} size={900}
                                 curSeconds={this.state.gameTime} maxSeconds={300} isVertical={false} />
 
-                            <div className='d-flex flex-row justify-content-around w-100' style={{ paddingTop: 20 }}>
-                                <Site size={100} whiteScore={this.state.site[1]["White"]}
-                                    blackScore={this.state.site[1]["Black"]} />
-                                <Site size={100} whiteScore={this.state.site[2]["White"]}
-                                    blackScore={this.state.site[2]["Black"]} />
-                                <Site size={140} whiteScore={this.state.site[0]["White"]}
-                                    blackScore={this.state.site[0]["Black"]} />
-                                <Site size={100} whiteScore={this.state.site[3]["White"]}
-                                    blackScore={this.state.site[3]["Black"]} />
-                                <Site size={100} whiteScore={this.state.site[4]["White"]}
-                                    blackScore={this.state.site[4]["Black"]} />
+                            <div className='d-flex flex-row justify-content-around w-100' style={{ paddingTop: 5 }}>
+                                <Site size={siteSize} whiteScore={this.state.site[1]["White"]}
+                                    blackScore={this.state.site[1]["Black"]} fontSizeDivider={2} />
+                                <Site size={siteSize} whiteScore={this.state.site[2]["White"]}
+                                    blackScore={this.state.site[2]["Black"]} fontSizeDivider={2} />
+
+                                <Site size={siteSize * 1.5} whiteScore={this.state.site[0]["White"]}
+                                    blackScore={this.state.site[0]["Black"]} fontSizeDivider={1} />
+
+                                <Site size={siteSize} whiteScore={this.state.site[3]["White"]}
+                                    blackScore={this.state.site[3]["Black"]} fontSizeDivider={2} />
+                                <Site size={siteSize} whiteScore={this.state.site[4]["White"]}
+                                    blackScore={this.state.site[4]["Black"]} fontSizeDivider={2} />
 
                             </div>
 
@@ -282,8 +319,8 @@ class StreamPage extends React.Component<> {
 
 
                         <div className="d-flex flex-column justify-content-start align-items-center">
-                            <TeamIcon side={'White'} teamName={teamInfo[this.state.whiteID].name}
-                                teamImage={this.imgSet[this.state.whiteID]} />
+                            {/* <TeamIcon side={'White'} teamName={teamInfo[this.state.whiteID].name}
+                                teamImage={this.imgSet[this.state.whiteID]} /> */}
 
                             <Statistic style={{ marginRight: 10, marginTop: 10 }} suffix={<LeftCircleOutlined style={{ marginLeft: 10 }} />}
                                 prefix={<RightCircleOutlined style={{ marginRight: 10 }} />} value={blackTotal}
@@ -292,23 +329,27 @@ class StreamPage extends React.Component<> {
 
                     </div>
 
-                    {/* <div className='d-flex flex-column game-body'>
+                    {/* pop-up icons, e.g. bomb explosion, engineer wake-up/shutdown, etc. */}
+                    <div className="d-flex flex-row justify-content-between">
 
-                        <div className='d-flex flex-row game-bottom justify-content-around m-2'>
+                        <div className="d-flex flex-row justify-content-center" style={{ backgroundColor: "#00FF00", width: 320, height: 320 }}>
 
-                            <div className='d-flex flex-column'>
-                                <h3 className='text-center'><LoadingOutlined
-                                    style={{ marginRight: 15 }} />{this.state.gameTime % 60 > 20 ? 'Engineer Working in Progress' : 'Battle Lab Refilling'}
-                                </h3>
-                                <CountBar backgroundColor={this.state.gameTime % 60 > 20 ? '#DC9FB4' : '#B5CAA0'}
-                                    color={this.state.gameTime % 60 > 20 ? '#E83015' : '#91AD70'} size={500}
-                                    curSeconds={this.state.gameTime % 60 > 20 ? (this.state.gameTimeMS % (60 * 1000)) / 1000 - 20 : (this.state.gameTimeMS % (60 * 1000)) / 1000}
-                                    maxSeconds={this.state.gameTime % 60 > 20 ? 40 : 20} isVertical={false} />
-                            </div>
+                            {this.state.blackBomb && <img style={{ width: 300, height: 300 }} src={explode} alt="Logo" />}
+
+                        </div>
+                        <div className="d-flex flex-row justify-content-center align-items-center" style={{ backgroundColor: "#00FF00", width: 320, height: 320 }}>
+
+                            {(this.state.engineerShutdownVisible && this.state.flashShowIcon) && <img style={{ width: 300, height: 300 }} src={engineerWakeup} alt="Logo" />}
 
                         </div>
 
-                    </div> */}
+                        <div className="d-flex flex-row justify-content-center" style={{ backgroundColor: "#00FF00", width: 320, height: 320 }}>
+
+                            {this.state.whiteBomb && <img style={{ width: 300, height: 300 }} src={explode} alt="Logo" />}
+
+                        </div>
+
+                    </div>
 
                 </div>
             )
@@ -316,14 +357,6 @@ class StreamPage extends React.Component<> {
     }
 
 
-}
-
-const stylesO = {
-    rectangle: {
-        width: '300px',
-        height: '300px',
-        color: "#00FF00"
-    }
 }
 
 export default StreamPage
