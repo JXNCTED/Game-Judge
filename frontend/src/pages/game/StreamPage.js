@@ -23,6 +23,8 @@ import team4 from "../../assets/team4.png";
 
 import styles from './stream.module.css'
 import CountBar from "../../components/countdown/CountBar";
+import GifEffect from "../../components/effect/GifEffect";
+import PngEffect from "../../components/effect/PngEffect";
 
 import engineerShutdown from "../../assets/engineerShutdown.png";
 import engineerWakeup from "../../assets/engineerWakeup.png";
@@ -81,8 +83,10 @@ class StreamPage extends React.Component<> {
             engineerShutdownVisible: false,
             whiteBomb: false,
             blackBomb: false,
-            flashCount: 0,
-            flashShowIcon: false,
+
+            // engineer state transition times
+            shutdownTimes: [300 - 40, 300 - (40 + 60), 300 - (40 + 60 * 2), 300 - (40 + 60 * 3)],
+            wakeupTimes: [300 - 60, 300 - 60 * 2, 300 - 60 * 3, 300 - 60 * 4],
         }
 
         this.ws.onmessage = (m) => {
@@ -137,7 +141,7 @@ class StreamPage extends React.Component<> {
     }
 
     timeChange = (time) => {
-        this.state.flashCount = this.state.flashCount + 1;
+
         if (this.state.state === "Start") {
             if (parseInt(time / 1000) !== this.state.gameTime) {
                 if (parseInt(time / 1000) % 30 === 0) {
@@ -148,16 +152,17 @@ class StreamPage extends React.Component<> {
                 }
 
                 // engineer wake-up/shutdown logics
-                if (parseInt(time / 1000) % 5 === 0) {
-                    let setValue = ~this.state.engineerShutdownVisible;
-                    this.setState({ engineerShutdownVisible: setValue })
+                if (this.state.shutdownTimes.includes(parseInt(time / 1000))) {
+                    this.setState({ engineerShutdownVisible: true })
+                } else if (this.state.wakeupTimes.includes(parseInt(time / 1000))) {
+                    this.setState({ engineerShutdownVisible: false })
                 }
 
                 // debug explosion
                 console.log("bomb", this.state.blackBomb)
                 if (parseInt(time / 1000) % 5 === 0) {
                     let setValue = !this.state.blackBomb
-                    this.setState({ blackBomb: setValue })
+                    this.setState({ blackBomb: setValue, whiteBomb: setValue })
                 }
 
                 this.setState({
@@ -264,11 +269,9 @@ class StreamPage extends React.Component<> {
             )
         } else // in game
         {
-            if (this.state.flashCount % 25 === 0) {
-                this.state.flashShowIcon = !this.state.flashShowIcon;
-            }
+
             const siteSize = 80;
-            // console.log("flash count:", this.state.flashCount)
+
             let whiteTotal = this.state.scoreLog.filter(x => x["Side"] === "White").reduce((a, b) => a + parseInt(b["Score"]), 0)
             let blackTotal = this.state.scoreLog.filter(x => x["Side"] === "Black").reduce((a, b) => a + parseInt(b["Score"]), 0)
             console.log(this.state.gameTime)
@@ -331,24 +334,21 @@ class StreamPage extends React.Component<> {
 
                     {/* pop-up icons, e.g. bomb explosion, engineer wake-up/shutdown, etc. */}
                     <div className="d-flex flex-row justify-content-between">
-
-                        <div className="d-flex flex-row justify-content-center" style={{ backgroundColor: "#00FF00", width: 320, height: 320 }}>
-
-                            {this.state.blackBomb && <img style={{ width: 300, height: 300 }} src={explode} alt="Logo" />}
-
+                        <div className="d-flex flex-row justify-content-center" style={{ backgroundColor: "#00FF00", width: 320, height: 320, paddingLeft: 30 }}>
+                            {/* black team explosion effect */}
+                            <GifEffect animate={this.state.blackBomb} gif={explode}></GifEffect>
                         </div>
                         <div className="d-flex flex-row justify-content-center align-items-center" style={{ backgroundColor: "#00FF00", width: 320, height: 320 }}>
-
-                            {(this.state.engineerShutdownVisible && this.state.flashShowIcon) && <img style={{ width: 300, height: 300 }} src={engineerWakeup} alt="Logo" />}
-
+                            {/* engineer wake-up effect */}
+                            <PngEffect animate={this.state.engineerShutdownVisible} png={engineerShutdown}></PngEffect>
+                            {/* engineer shutdown effect */}
+                            <PngEffect animate={!this.state.engineerShutdownVisible} png={engineerWakeup}></PngEffect>
                         </div>
 
-                        <div className="d-flex flex-row justify-content-center" style={{ backgroundColor: "#00FF00", width: 320, height: 320 }}>
-
-                            {this.state.whiteBomb && <img style={{ width: 300, height: 300 }} src={explode} alt="Logo" />}
-
+                        <div className="d-flex flex-row justify-content-center" style={{ backgroundColor: "#00FF00", width: 320, height: 320, paddingRight: 30 }}>
+                            {/* white team explosion effect */}
+                            <GifEffect animate={this.state.whiteBomb} gif={explode}></GifEffect>
                         </div>
-
                     </div>
 
                 </div>
