@@ -14,8 +14,8 @@ class GifEffect extends React.Component {
         super(props);
 
         this.state = {
-            lastAnimate: false,
-            curAnimate: false,
+            lastInputAnimateCount: 0,
+            curInputAnimateCount: 0,
             animateDone: true,
             maxAnimateCount: 20,
             curAnimateCount: 0,
@@ -23,15 +23,14 @@ class GifEffect extends React.Component {
     }
 
     componentDidMount() {
+        this.setState({ curInputAnimateCount: this.props.animate, lastInputAnimateCount: this.props.animate });
         this.myInterval = setInterval(() => {
 
-            this.setState({ curAnimate: this.props.animate });
+            this.setState({ curInputAnimateCount: this.props.animate });
 
-            if (this.state.curAnimate !== this.state.lastAnimate && this.state.curAnimate) {
-                this.setState({ lastAnimate: true, animateDone: false, curAnimateCount: 0 }) // start animation
-            }
-            else if (this.state.curAnimate !== this.state.lastAnimate && !this.state.curAnimate) {
-                this.setState({ lastAnimate: false, animateDone: true, curAnimateCount: this.state.maxAnimateCount }) // abort current animation if not ended
+            if (this.state.curInputAnimateCount !== this.state.lastInputAnimateCount) {
+                console.log("start animation")
+                this.setState({ lastInputAnimateCount: this.state.curInputAnimateCount, animateDone: false, curAnimateCount: 0 }) // start animation
             }
 
             const { maxAnimateCount, curAnimateCount } = this.state;
