@@ -15,26 +15,26 @@ def writeToLog(logger, msg):
         logger.log(msg)
 
 SCORE_INDEX = {
-    'Wiring': ['Time-limited Welding Challenge', 10], 
-    'StayRampS': ['Carrier Staying on the Ramp', 10], 
+    'Wiring': ['Time-limited Welding Challenge', 15],
+    'StayRampS': ['Carrier Staying on the Ramp', 15],
     'OccupyZero': ['Occupying Site 0 for 1 minute', 20], 
-    'StayRampE': ['Stay on the ramp', 15], 
-    'Occupy': ['Occupy One Site', 80], 
+    # 'DepSoldier': ['Deploy a Soldier', 5],
+    # 'DepGeneral': ['Deploy a General', 10],
+    'Occupy': ['Occupy One Site', 80],
 
-    'FailStayRampS': ['Carrier Not Staying on the Ramp', -20], 
-    'PauseOne': ['Technical Pause for 1 min', -10], 
-    'CrashWall': ['Carrier Stepping over the Wall', -3], 
-    'Bomb': ['Engineer Taking out a Bomb', -30], 
-    'CarrierOut': ['Carrier Going Out of the Field', -30], 
-    'DBlocking': ['Deliberate striking or blocking the opponent', -20], 
-    'DMoving': ['Deliberate moving the Soldier/General of other team in Site', -30], 
-    'Stepping': ['Team Member Stepping into the Field', -100], 
-    'Restricted': ['Carrier Going into the Restricted Area', -30], 
+    'CrashWall': ['Carrier Stepping over the Wall', -3],
+    'Bomb': ['Engineer Taking out a Bomb', -20],
+    'CarrierOut': ['Carrier Going Out of the Field', -10],
+    'DBlocking': ['Striking or blocking the opponent', -20],
+    'DMoving': ['moving other team\'s item in Site', -10],
+    'Stepping': ['Member Stepping into the Field', -100],
+    'Restricted': ['Carrier in Restricted Area (non-E)', -10],
+    'RestrictedEng': ['Carrier in Restricted Area (E)', -50],
 
     'DepSoldier': ['Deploy a Soldier', 5], 
-    'DepGeneral': ['Deploy a General', 10], 
+    'DepGeneral': ['Deploy a General', 15], 
     'RecSoldier': ['Recall a Soldier', -5], 
-    'RecGeneral': ['Recall a General', -10],
+    'RecGeneral': ['Recall a General', -15],
 }
 
 # IP_ADDRESS = "localhost"
