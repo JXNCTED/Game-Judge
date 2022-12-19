@@ -31,6 +31,9 @@ class SideReferee:
                     else: 
                         writeToLog(self.logger, ['Admin', 'Both', 'Prepare', int(param[0])*10+int(param[1])])
                     processed = 1
+                if cmd == "PCount":
+                    writeToLog(self.logger, ['Admin', 'Both', 'PCount'])
+                    processed = 1
                 if cmd == "Game":
                     writeToLog(self.logger, ['Admin', 'Both', 'Game'])
                     processed = 1

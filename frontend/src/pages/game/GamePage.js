@@ -68,6 +68,8 @@ class GamePage extends React.Component<> {
             blackSoldier: 5,
             site0Host: 'None',
             site0Time: 0,
+            preStartTimeMs: 3 * 60 * 1000,
+            preTime: Date.now(),
         }
 
         this.ws.onmessage = (m) => {
@@ -96,6 +98,12 @@ class GamePage extends React.Component<> {
                         site0Time: 0,
                     })
                 }
+                if (temp['State'] === 'PCount' && (!temp['Ready']['Black'] && !temp['Ready']['White'])) {
+                    this.setState({
+                        preStartTimeMs: 3 * 60 * 1000,
+                        preTime: Date.now(),
+                    })
+                }
             } else if (m.data.split('^')[1] === "Site") {
                 let data = JSON.parse(m.data.split('^')[2])
                 let newHost = data[0]['Black']===data[0]['White'] ? 'None' : (data[0]['Black'] > data[0]['White'] ? 'Black' : 'White')
@@ -109,6 +117,13 @@ class GamePage extends React.Component<> {
                     })
             }
         }
+    }
+
+    preTimeChange = (time) => {
+        if (this.state.preStartTimeMs - time > 30)
+            this.setState({
+                preStartTimeMs: time,
+            })
     }
 
     timeChange = (time) => {
@@ -143,14 +158,28 @@ class GamePage extends React.Component<> {
                     PLEASE RESET THE GAME FIRST
                 </div>
             )
-        else if (this.state.state === 'Prepare')
+        else if (this.state.state === 'Prepare' || this.state.state === 'PCount')
             return (
                 <div
                     className={"prepare-main d-flex flex-column justify-content-between align-content-between h-100 w-100 ready-state-" + this.state.ready}>
                     <div className="prepare-main d-flex flex-column justify-content-between align-content-between">
                         <h1 className='text-center' style={{marginTop: 30}}>Preparation Stage</h1>
-                        <h3 className='text-center' style={{marginTop: 50}}><LoadingOutlined style={{marginRight: 30}}/>Waiting
-                            for the command ...</h3>
+                        {this.state.state === 'PCount' &&
+                            <Countdown valueStyle={{fontSize: 50, textAlign: 'center'}} prefix={<ClockCircleOutlined/>}
+                                       title={<h3 className='text-center'>Prepare Time</h3>}
+                                       value={this.state.preTime + 3 * 60 * 1000} format="mm:ss"
+                                       onChange={this.preTimeChange}/>
+                        }
+                        {this.state.state === 'PCount' &&
+                            <div className='m-auto'>
+                            <CountBar backgroundColor={'#69B0AC'} color={'#00896C'} size={700}
+                                      curSeconds={this.state.preStartTimeMs / 1000} maxSeconds={3*60} isVertical={false}/>
+                            </div>
+                        }
+                        {this.state.state === 'Prepare' &&
+                            <h3 className='text-center' style={{marginTop: 50}}><LoadingOutlined style={{marginRight: 30}}/>Waiting
+                                for the command ...</h3>
+                        }
                     </div>
                     <div className='d-flex flex-row justify-content-between m-4'>
                         <div>

@@ -146,6 +146,9 @@ class MajorJudge extends React.Component<> {
                                     </Form>
                                 </Card>
 
+                                <Button className="m-2 w-100" type='primary' danger loading={this.state.stateLoading} onClick={()=>this.onStateChange('PCount')} >
+                                    3MIN PREPARE
+                                </Button>
                                 <Button className="m-2 w-100" type='primary' danger loading={this.state.stateLoading} onClick={()=>this.onStateChange('Game')} >
                                     GAME PAGE
                                 </Button>

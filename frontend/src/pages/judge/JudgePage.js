@@ -5,6 +5,7 @@ import ScoreLog from "../../components/socrelog/ScoreLog";
 import ServerList from "../../service/utils";
 
 const buttonList = {
+    'Wiring': ['Time-limited Welding Challenge', 10],
     'StayRampS': ['Carrier Staying on the Ramp', 10],
     // 'DepSoldier': ['Deploy a Soldier', 5],
     // 'DepGeneral': ['Deploy a General', 10],

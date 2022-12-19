@@ -15,6 +15,7 @@ def writeToLog(logger, msg):
         logger.log(msg)
 
 SCORE_INDEX = {
+    'Wiring': ['Time-limited Welding Challenge', 10], 
     'StayRampS': ['Carrier Staying on the Ramp', 10], 
     'OccupyZero': ['Occupying Site 0 for 1 minute', 20], 
     'StayRampE': ['Stay on the ramp', 15], 
