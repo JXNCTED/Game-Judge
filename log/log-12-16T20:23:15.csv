@@ -1,0 +1,52 @@
+Time,Category,Side,Event,Score
+2022/12/16 20:23:15,Admin,Both,Prepare,12
+2022/12/16 20:23:20,Admin,Black,Ready,0
+2022/12/16 20:23:22,Admin,White,Ready,0
+2022/12/16 20:23:27,Admin,Both,Game,0
+2022/12/16 20:23:29,Admin,Both,Start,0
+2022/12/16 20:23:32,Admin,Both,Start,0
+2022/12/16 20:23:37,Score,Black,Deploy a Soldier,5
+2022/12/16 20:23:37,Site,Black,2,1
+2022/12/16 20:23:38,Score,White,Deploy a Soldier,5
+2022/12/16 20:23:39,Site,White,2,1
+2022/12/16 20:23:40,Score,Black,Deploy a Soldier,5
+2022/12/16 20:23:41,Site,Black,2,1
+2022/12/16 20:23:43,Score,Black,Deploy a Soldier,5
+2022/12/16 20:23:44,Site,Black,2,1
+2022/12/16 20:23:44,Score,White,Deploy a Soldier,5
+2022/12/16 20:23:45,Site,White,4,1
+2022/12/16 20:23:47,Score,White,Deploy a Soldier,5
+2022/12/16 20:23:48,Site,White,4,1
+2022/12/16 20:23:52,Score,White,Deploy a General,10
+2022/12/16 20:23:52,Site,White,2,3
+2022/12/16 20:23:52,Score,Black,Deploy a Soldier,5
+2022/12/16 20:23:53,Site,Black,2,1
+2022/12/16 20:23:56,Score,White,Deploy a Soldier,5
+2022/12/16 20:23:56,Site,White,4,1
+2022/12/16 20:24:01,Score,Black,Deploy a General,10
+2022/12/16 20:24:02,Site,Black,4,3
+2022/12/16 20:24:07,Score,Black,Deploy a Soldier,5
+2022/12/16 20:24:07,Site,Black,2,1
+2022/12/16 20:24:11,Score,White,Deploy a Soldier,5
+2022/12/16 20:24:12,Site,White,2,1
+2022/12/16 20:24:25,Score,White,Recall a Soldier,-5
+2022/12/16 20:24:25,Site,White,2,-1
+2022/12/16 20:24:28,Score,Black,Carrier Going into the Restricted Area,-30
+2022/12/16 20:24:33,Score,White,Deploy a Soldier,5
+2022/12/16 20:24:33,Site,White,4,1
+2022/12/16 20:24:42,Score,White,Deliberate striking or blocking the opponent,-20
+2022/12/16 20:24:44,Score,Black,Deploy a Soldier,5
+2022/12/16 20:24:44,Site,Black,2,1
+2022/12/16 20:24:45,Score,White,Deploy a Soldier,5
+2022/12/16 20:24:46,Site,White,2,1
+2022/12/16 20:24:52,Score,White,Recall a Soldier,-5
+2022/12/16 20:24:52,Site,White,2,-1
+2022/12/16 20:24:54,Score,White,Deploy a Soldier,5
+2022/12/16 20:24:55,Site,White,4,1
+2022/12/16 20:25:20,Score,White,Carrier Going into the Restricted Area,-30
+2022/12/16 20:25:23,Score,Black,Deploy a General,10
+2022/12/16 20:25:24,Site,Black,2,3
+2022/12/16 20:25:26,Score,White,Deploy a Soldier,5
+2022/12/16 20:25:27,Site,White,2,1
+2022/12/16 20:25:31,Score,Black,Deploy a General,10
+2022/12/16 20:25:31,Site,Black,2,3

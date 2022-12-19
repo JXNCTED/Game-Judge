@@ -1,6 +1,7 @@
 import React from "react";
 import Site from "../../components/site/Site";
 import ScoreLog from "../../components/socrelog/ScoreLog";
+import Coundtdown from "../../components/countdown/Countdown";
 import ServerList from "../../service/utils";
 import ReadyIcon from "../../components/ready_icon/ReadyIcon";
 import TeamIcon from "../../components/team_icon/TeamIcon";
@@ -70,6 +71,7 @@ class GamePage extends React.Component<> {
             preStartTimeMs: 3 * 60 * 1000,
             preTime: Date.now(),
         }
+
         this.ws.onmessage = (m) => {
             if (m.data === "TESTING")
                 return
@@ -321,6 +323,8 @@ class GamePage extends React.Component<> {
                 </div>
             )
     }
+
+
 }
 
 export default GamePage

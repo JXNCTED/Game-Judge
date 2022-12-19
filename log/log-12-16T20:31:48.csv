@@ -1,0 +1,43 @@
+Time,Category,Side,Event,Score
+2022/12/16 20:31:48,Admin,Both,Prepare,12
+2022/12/16 20:31:50,Admin,White,Ready,0
+2022/12/16 20:31:53,Admin,Both,Game,0
+2022/12/16 20:31:58,Admin,Both,Start,0
+2022/12/16 20:32:04,Score,White,Carrier Going into the Restricted Area,-30
+2022/12/16 20:32:07,Score,Black,Deploy a Soldier,5
+2022/12/16 20:32:07,Site,Black,2,1
+2022/12/16 20:32:11,Score,White,Carrier Going into the Restricted Area,-30
+2022/12/16 20:32:11,Score,Black,Deploy a Soldier,5
+2022/12/16 20:32:12,Site,Black,2,1
+2022/12/16 20:32:16,Score,Black,Recall a Soldier,-5
+2022/12/16 20:32:16,Site,Black,2,-1
+2022/12/16 20:32:20,Score,Black,Carrier Going into the Restricted Area,-30
+2022/12/16 20:32:23,Score,Black,Carrier Going into the Restricted Area,-30
+2022/12/16 20:32:23,Score,White,Deploy a Soldier,5
+2022/12/16 20:32:23,Site,White,2,1
+2022/12/16 20:32:26,Score,White,Deploy a General,10
+2022/12/16 20:32:27,Site,White,2,3
+2022/12/16 20:32:30,Score,Black,Deploy a Soldier,5
+2022/12/16 20:32:30,Site,Black,2,1
+2022/12/16 20:32:34,Score,Black,Deploy a Soldier,5
+2022/12/16 20:32:34,Site,Black,2,1
+2022/12/16 20:32:37,Score,White,Deploy a Soldier,5
+2022/12/16 20:32:37,Site,White,4,1
+2022/12/16 20:32:45,Score,Black,Deploy a Soldier,5
+2022/12/16 20:32:45,Site,Black,2,1
+2022/12/16 20:32:45,Score,White,Deploy a Soldier,5
+2022/12/16 20:32:46,Site,White,2,1
+2022/12/16 20:32:49,Score,Black,Deploy a Soldier,5
+2022/12/16 20:32:49,Site,Black,2,1
+2022/12/16 20:32:53,Score,Black,Deploy a Soldier,5
+2022/12/16 20:32:54,Site,Black,4,1
+2022/12/16 20:32:58,Score,White,Deliberate striking or blocking the opponent,-20
+2022/12/16 20:33:24,Score,Black,Deliberate striking or blocking the opponent,-20
+2022/12/16 20:33:58,Score,Black,Deploy a Soldier,5
+2022/12/16 20:33:59,Site,Black,2,1
+2022/12/16 20:34:01,Score,Black,Deploy a Soldier,5
+2022/12/16 20:34:02,Site,Black,3,1
+2022/12/16 20:34:03,Score,Black,Technical Pause for 1 min,-10
+2022/12/16 20:34:05,Score,Black,Carrier Stepping over the Wall,-3
+2022/12/16 20:34:06,Score,Black,Engineer Taking out a Bomb,-30
+2022/12/16 20:34:08,Score,Black,Carrier Going Out of the Field,-30

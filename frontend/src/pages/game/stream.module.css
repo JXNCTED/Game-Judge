@@ -1,0 +1,41 @@
+.bigblue {
+  color: black;
+  padding: 40px;
+  font-family: Arial;
+  text-align: center;
+}
+
+.rectangle {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background: black;
+}
+
+.intro {
+  background-image: url('../../../public/UIbackPrep.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
+  color: black;
+  height: 100vh;
+  width: 100vw;
+}
+
+.fadeOut {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  transition: width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s;
+}
+
+.fadeIn {
+  opacity: 1;
+  width: 100px;
+  height: 100px;
+  transition: width 0.5s, height 0.5s, opacity 0.5s 0.5s;
+
+}
