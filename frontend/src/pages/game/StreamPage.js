@@ -3,6 +3,7 @@ import Site from "../../components/site/Site";
 import ServerList from "../../service/utils";
 import teamInfo from "../../assets/teaminfo.json";
 import {
+    CheckCircleOutlined, CloseCircleOutlined,
     LeftCircleOutlined,
     RightCircleOutlined
 } from "@ant-design/icons";
@@ -28,6 +29,7 @@ import whiteVictory from "../../assets/whiteVictory.png";
 import gameFinish from "../../assets/gameFinish.png";
 import scoreTie from "../../assets/scoreTie.png";
 import TeamIcon from "../../components/team_icon/TeamIcon";
+import ReadyIcon from "../../components/ready_icon/ReadyIcon";
 
 const { Countdown } = Statistic;
 
@@ -204,7 +206,7 @@ class StreamPage extends React.Component<> {
     }
 
     render() {
-        const { pageNumber, numPages } = this.state;
+        // const { pageNumber, numPages } = this.state;
         if (this.state.state === 'None')
             return (
                 <div>
@@ -255,6 +257,25 @@ class StreamPage extends React.Component<> {
 
                         </div>
                     </div> */}
+                    <div className='d-flex flex-row justify-content-between w-100'>
+                        <div className="game-log d-flex flex-column justify-content-center">
+                            <div className='text-center w-100' style={{fontSize: 60}}> {whiteTotal < blackTotal ? <CheckCircleOutlined style={{color: '#4CAF50'}}/> : <CloseCircleOutlined style={{color: '#F44336'}}/>} </div>
+                            <ReadyIcon teamName={teamInfo[this.state.blackID].name}
+                                       teamImage={this.imgSet[this.state.blackID]} display={true}
+                                       isReady={whiteTotal < blackTotal} side={'Black'}/>
+                            <h2 className='text-center m-2'>Total Score: <strong style={{fontSize: 50}}>{blackTotal}</strong></h2>
+                        </div>
+                        {(whiteTotal > blackTotal) && <img alt='ww' style={{ width: 700, height: 700, paddingTop: 90, paddingBottom: 90 }} src={whiteVictory}></img>}
+                        {(blackTotal > whiteTotal) && <img alt='bw' style={{ width: 700, height: 700, paddingTop: 90, paddingBottom: 90 }} src={blackVictory}></img>}
+                        {(blackTotal === whiteTotal) && <img alt='tie' style={{ width: 700, height: 700, paddingTop: 90, paddingBottom: 90 }} src={scoreTie}></img>}
+                        <div className="game-log d-flex flex-column">
+                            <div className='text-center w-100' style={{fontSize: 60}}> {whiteTotal > blackTotal ? <CheckCircleOutlined style={{color: '#4CAF50'}}/> : <CloseCircleOutlined style={{color: '#F44336'}}/>} </div>
+                            <ReadyIcon teamName={teamInfo[this.state.whiteID].name}
+                                       teamImage={this.imgSet[this.state.whiteID]} display={true}
+                                       isReady={whiteTotal > blackTotal} side={'White'}/>
+                            <h2 className='text-center m-2'>Total Score: <strong style={{fontSize: 50}}>{whiteTotal}</strong></h2>
+                        </div>
+                    </div>
 
                     <div className="game-site-log d-flex flex-row justify-content-center align-items-center" style={{
                         position: "absolute",
@@ -283,9 +304,6 @@ class StreamPage extends React.Component<> {
 
 
                     </div>
-                        {(whiteTotal > blackTotal) && <img style={{ width: 700, height: 700, paddingTop: 90, paddingBottom: 90 }} src={whiteVictory}></img>}
-                        {(blackTotal > whiteTotal) && <img style={{ width: 700, height: 700, paddingTop: 90, paddingBottom: 90 }} src={blackVictory}></img>}
-                        {(blackTotal === whiteTotal) && <img style={{ width: 700, height: 700, paddingTop: 90, paddingBottom: 90 }} src={scoreTie}></img>}
                 </div>
             )
         } else // in game
@@ -360,7 +378,7 @@ class StreamPage extends React.Component<> {
                             <PngEffect animate={this.state.engineerShutdownVisible && this.state.state === "Start"} png={engineerShutdown}></PngEffect>
                             {/* engineer shutdown effect */}
                             <PngEffect animate={!this.state.engineerShutdownVisible && this.state.state === "Start"} png={engineerWakeup}></PngEffect>
-                            {(this.state.state === "Start" && this.state.gameTime === 0) && <img style={{ width: 700, height: 700, paddingTop: 210 }} src={gameFinish}></img>}
+                            {(this.state.state === "Start" && this.state.gameTime === 0) && <img alt='eng' style={{ width: 700, height: 700, paddingTop: 210 }} src={gameFinish}></img>}
 
                         </div>
 
