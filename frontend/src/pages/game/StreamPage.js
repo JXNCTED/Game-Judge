@@ -224,13 +224,13 @@ class StreamPage extends React.Component<> {
                                 <TeamIcon side={'White'} teamName={whiteReady ? `${teamInfo[this.state.whiteID].name} READY` : 'Preparing...'}
                                           teamImage={whiteReady ? this.imgSet[this.state.whiteID] : loading}/>
                             </div>
-                            <div className="d-flex flex-row justify-content-center" style={{ backgroundColor: "#FFFFFF", width: 200, height: 90, borderRadius: 20 }}>
-                                {this.state.state === 'PCount' &&
+                            {this.state.state === 'PCount' &&
+                                <div className="d-flex flex-row justify-content-center" style={{ backgroundColor: "#FFFFFF", width: 200, height: 90, borderRadius: 20 }}>
                                     <Countdown title="" valueStyle={{fontSize: 60}}
                                             value={this.state.prepStartTime + 180 * 1000} format="mm:ss"
                                             onChange={this.timeChange}/>
-                                }
-                            </div>
+                                </div>
+                            }
                             {this.state.state === 'PCount' &&
                             <CountBar backgroundColor={'#A5DEE4'} color={'#0089A7'} size={700}
                                       curSeconds={this.state.preStartTimeMs / 1000} maxSeconds={3*60} isVertical={false}/>

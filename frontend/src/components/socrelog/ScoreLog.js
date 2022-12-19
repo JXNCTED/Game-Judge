@@ -84,7 +84,7 @@ function ScoreLog(props) {
                 {props.side==="Black"?element:element.reverse()}
             </div>
             <div className="score-log-log d-flex w-100">
-                <Table columns={columns} dataSource={data.reverse()} size="small" pagination={false} scroll={{y: 550}} />
+                <Table columns={columns} dataSource={Array.from(data).reverse()} size="small" pagination={false} scroll={{y: 550}} />
             </div>
         </div>
     )
