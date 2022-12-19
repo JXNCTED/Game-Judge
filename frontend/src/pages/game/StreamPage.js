@@ -32,7 +32,8 @@ import explode from "../../assets/explode1.gif";
 
 import blackVictory from "../../assets/blackVictory.png";
 import whiteVictory from "../../assets/whiteVictory.png";
-import scoreTie from "../../assets/whiteVictory.png";
+import gameFinish from "../../assets/gameFinish.png";
+import scoreTie from "../../assets/scoreTie.png";
 
 const { Countdown } = Statistic;
 
@@ -229,10 +230,8 @@ class StreamPage extends React.Component<> {
                         </div>
 
                         <div className="d-flex flex-row justify-content-center cameraOutput" style={{ paddingTop: 100, marginLeft: 15 }}>
-                            <div style={{ backgroundColor: "#00FF00", width: 500, height: 430, marginRight: 16 }}></div>
-                            <CountBar backgroundColor={'#f0f0f0'} color={"#4040F0"} size={420}
-                                curSeconds={this.state.prepTime} maxSeconds={180} isVertical={true} />
-                            <div style={{ backgroundColor: "#00FF00", width: 500, height: 430, marginLeft: 16 }}></div>
+                            <div style={{ backgroundColor: 'rgba(52, 52, 52, 0)', width: 500, height: 650, marginRight: 16 }}></div>
+
                         </div>
 
                         <div className="d-flex flex-row justify-content-center" style={{ paddingTop: 40, marginLeft: 26 }}>
@@ -285,7 +284,11 @@ class StreamPage extends React.Component<> {
                             </div>
                         </div>
 
+
                     </div>
+                        {(whiteTotal > blackTotal) && <img style={{ width: 700, height: 700, paddingTop: 90, paddingBottom: 90 }} src={whiteVictory}></img>}
+                        {(blackTotal > whiteTotal) && <img style={{ width: 700, height: 700, paddingTop: 90, paddingBottom: 90 }} src={blackVictory}></img>}
+                        {(blackTotal === whiteTotal) && <img style={{ width: 700, height: 700, paddingTop: 90, paddingBottom: 90 }} src={scoreTie}></img>}
                 </div>
             )
         } else // in game
@@ -360,9 +363,8 @@ class StreamPage extends React.Component<> {
                             <PngEffect animate={this.state.engineerShutdownVisible && this.state.state === "Start"} png={engineerShutdown}></PngEffect>
                             {/* engineer shutdown effect */}
                             <PngEffect animate={!this.state.engineerShutdownVisible && this.state.state === "Start"} png={engineerWakeup}></PngEffect>
-                            {(this.state.state === "Start" && this.state.gameTime === 0 && whiteTotal > blackTotal) && <img style={{ width: 700, height: 700, paddingTop: 210 }} src={whiteVictory}></img>}
-                            {(this.state.state === "Start" && this.state.gameTime === 0 && blackTotal > whiteTotal) && <img style={{ width: 700, height: 700, paddingTop: 210 }} src={blackVictory}></img>}
-                            {(this.state.state === "Start" && this.state.gameTime === 0 && blackTotal === whiteTotal) && <img style={{ width: 700, height: 700, paddingTop: 210 }} src={scoreTie}></img>}
+                            {(this.state.state === "Start" && this.state.gameTime === 0) && <img style={{ width: 700, height: 700, paddingTop: 210 }} src={gameFinish}></img>}
+
                         </div>
 
                         <div className="d-flex flex-row justify-content-center" style={{ backgroundColor: "#00FF00", width: 320, height: 320, paddingRight: 30 }}>

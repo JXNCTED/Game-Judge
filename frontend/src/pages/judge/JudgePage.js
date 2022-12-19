@@ -5,30 +5,27 @@ import ScoreLog from "../../components/socrelog/ScoreLog";
 import ServerList from "../../service/utils";
 
 const buttonList = {
-    'Wiring': ['Time-limited Welding Challenge', 10],
-    'StayRampS': ['Carrier Staying on the Ramp', 10],
+    'Wiring': ['Time-limited Welding Challenge', 15],
+    'StayRampS': ['Carrier Staying on the Ramp', 15],
     // 'DepSoldier': ['Deploy a Soldier', 5],
     // 'DepGeneral': ['Deploy a General', 10],
-    'OccupyZero': ['Occupying Site 0 for 1 minute', 20],
-    'StayRampE': ['Stay on the ramp', 15],
     'Occupy': ['Occupy One Site', 80],
 
-    'FailStayRampS': ['Carrier Not Staying on the Ramp', -20],
-    'PauseOne': ['Technical Pause for 1 min', -10],
     'CrashWall': ['Carrier Stepping over the Wall', -3],
-    'Bomb': ['Engineer Taking out a Bomb', -30],
-    'CarrierOut': ['Carrier Going Out of the Field', -30],
+    'Bomb': ['Engineer Taking out a Bomb', -20],
+    'CarrierOut': ['Carrier Going Out of the Field', -10],
     'DBlocking': ['Striking or blocking the opponent', -20],
-    'DMoving': ['moving other team\'s item in Site', -30],
+    'DMoving': ['moving other team\'s item in Site', -10],
     'Stepping': ['Member Stepping into the Field', -100],
-    'Restricted': ['Carrier in the Restricted Area', -30],
+    'Restricted': ['Carrier in Restricted Area (non-E)', -10],
+    'RestrictedEng': ['Carrier in Restricted Area (E)', -50],
 }
 
 const siteList = {
     'DepSoldier': ['Deploy a Soldier', 5, 101, 'Soldier'],
-    'DepGeneral': ['Deploy a General', 10, 102, 'General'],
+    'DepGeneral': ['Deploy a General', 15, 102, 'General'],
     'RecSoldier': ['Recall a Soldier', -5, 201, 'Soldier'],
-    'RecGeneral': ['Recall a General', -10, 202, 'General'],
+    'RecGeneral': ['Recall a General', -15, 202, 'General'],
 }
 
 class GamePage extends React.Component<> {

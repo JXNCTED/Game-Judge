@@ -13,7 +13,7 @@
 }
 
 .intro {
-  background-image: url('../../../public/UI2.jpg');
+  background-image: url('../../../public/UIbackPrep.png');
   background-repeat: no-repeat;
   background-position: center center;
   -webkit-background-size: contain;
@@ -30,7 +30,6 @@
   width: 0;
   height: 0;
   transition: width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s;
-
 }
 
 .fadeIn {
