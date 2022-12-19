@@ -313,7 +313,7 @@ class StreamPage extends React.Component<> {
 
                         <div className="d-flex flex-column justify-content-center align-items-center title">
                             <div className="d-flex flex-row justify-content-center" style={{ width: 120, height: 50, borderRadius: 5, backgroundColor: "#FFFFFF", fontWeight: "bold" }}>
-                                {this.state.state === "Start" && <Countdown title="" valueStyle={{ fontSize: 30 }} value={this.state.startTime + 10 * 1000} onChange={this.timeChange} format="mm:ss" />}
+                                {this.state.state === "Start" && <Countdown title="" valueStyle={{ fontSize: 30 }} value={this.state.startTime + 300 * 1000} onChange={this.timeChange} format="mm:ss" />}
                                 {this.state.state === "Game" && <div style={{ fontSize: 30 }}><b>05:00</b></div>}
                             </div>
 
