@@ -1,7 +1,6 @@
 import React from "react";
 import Site from "../../components/site/Site";
 import ServerList from "../../service/utils";
-import ReadyIcon from "../../components/ready_icon/ReadyIcon";
 import teamInfo from "../../assets/teaminfo.json";
 import {
     LeftCircleOutlined,
@@ -13,6 +12,7 @@ import team1 from "../../assets/team1.png";
 import team2 from "../../assets/team2.png";
 import team3 from "../../assets/team3.png";
 import team4 from "../../assets/team4.png";
+import loading from "../../assets/loading.png";
 
 import styles from './stream.module.css'
 import CountBar from "../../components/countdown/CountBar";
@@ -27,6 +27,7 @@ import blackVictory from "../../assets/blackVictory.png";
 import whiteVictory from "../../assets/whiteVictory.png";
 import gameFinish from "../../assets/gameFinish.png";
 import scoreTie from "../../assets/scoreTie.png";
+import TeamIcon from "../../components/team_icon/TeamIcon";
 
 const { Countdown } = Statistic;
 
@@ -210,12 +211,19 @@ class StreamPage extends React.Component<> {
                     PLEASE RESET THE GAME FIRST
                 </div>
             )
-        else if (this.state.state === 'Prepare' || this.state.state === 'PCount')
+        else if (this.state.state === 'Prepare' || this.state.state === 'PCount'){
+            let whiteReady = this.state.ready === 'White' || this.state.ready === 'Both'
+            let blackReady = this.state.ready === 'Black' || this.state.ready === 'Both'
             return (
                 <div style={{ paddingTop: 0, backgroundColor: '#00ff00' }}>
-
                     <div className={styles.intro}>
                         <div className="d-flex flex-column justify-content-end align-items-center w-100 h-100" >
+                            <div className='d-flex flex-row justify-content-between' style={{width: '80%'}}>
+                                <TeamIcon side={'Black'} teamName={blackReady ? `${teamInfo[this.state.blackID].name} READY` : 'Preparing...'}
+                                          teamImage={blackReady ? this.imgSet[this.state.blackID] : loading}/>
+                                <TeamIcon side={'White'} teamName={whiteReady ? `${teamInfo[this.state.whiteID].name} READY` : 'Preparing...'}
+                                          teamImage={whiteReady ? this.imgSet[this.state.whiteID] : loading}/>
+                            </div>
                             <div className="d-flex flex-row justify-content-center" style={{ backgroundColor: "#FFFFFF", width: 200, height: 90, borderRadius: 20 }}>
                                 {this.state.state === 'PCount' &&
                                     <Countdown title="" valueStyle={{fontSize: 60}}
@@ -233,7 +241,7 @@ class StreamPage extends React.Component<> {
 
                 </div>
             )
-        else if (this.state.state === 'Settle') {
+        }else if (this.state.state === 'Settle') {
             let whiteTotal = this.state.scoreLog.filter(x => x["Side"] === "White").reduce((a, b) => a + parseInt(b["Score"]), 0)
             let blackTotal = this.state.scoreLog.filter(x => x["Side"] === "Black").reduce((a, b) => a + parseInt(b["Score"]), 0)
             let siteSize = 140;
