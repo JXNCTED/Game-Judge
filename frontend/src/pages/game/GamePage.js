@@ -1,7 +1,6 @@
 import React from "react";
 import Site from "../../components/site/Site";
 import ScoreLog from "../../components/socrelog/ScoreLog";
-import Coundtdown from "../../components/countdown/Countdown";
 import ServerList from "../../service/utils";
 import ReadyIcon from "../../components/ready_icon/ReadyIcon";
 import TeamIcon from "../../components/team_icon/TeamIcon";

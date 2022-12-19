@@ -1,18 +1,11 @@
 import React from "react";
 import Site from "../../components/site/Site";
-import ScoreLog from "../../components/socrelog/ScoreLog";
-import Coundtdown from "../../components/countdown/Countdown";
 import ServerList from "../../service/utils";
 import ReadyIcon from "../../components/ready_icon/ReadyIcon";
-import TeamIcon from "../../components/team_icon/TeamIcon";
 import teamInfo from "../../assets/teaminfo.json";
-import field from "../../assets/field.png";
 import {
-    CheckCircleOutlined,
-    ClockCircleOutlined, CloseCircleOutlined,
     LeftCircleOutlined,
-    LoadingOutlined,
-    RightCircleOutlined, RightOutlined
+    RightCircleOutlined
 } from "@ant-design/icons";
 import { Statistic } from 'antd';
 
@@ -73,7 +66,7 @@ class StreamPage extends React.Component<> {
             whiteID: -1,
             blackID: -1,
             gameTime: 5 * 60,
-            prepTime: 3 * 60,
+            preStartTimeMs: 3 * 60,
             prepStartTime: Date.now(),
             gameTimeMS: 5 * 60 * 1000,
             startTime: Date.now(),
@@ -129,9 +122,9 @@ class StreamPage extends React.Component<> {
                     whiteID: temp['Team']['White'] - 1,
                     blackID: temp['Team']['Black'] - 1
                 })
-                if (temp['State'] === 'Prepare') {
+                if (temp['State'] === 'PCount' && (!temp['Ready']['Black'] && !temp['Ready']['White'])) {
                     this.setState({
-                        prepTime: 5 * 60,
+                        // prepTime: 5 * 60,
                         prepStartTime: Date.now(),
                     })
                 }
@@ -201,9 +194,9 @@ class StreamPage extends React.Component<> {
             }
 
 
-        } else if (this.state.state === "Prepare") {
+        } else if (this.state.state === "PCount") {
             this.setState({
-                prepTime: parseInt(time / 1000)
+                preStartTimeMs: time
             })
         }
 
@@ -217,27 +210,23 @@ class StreamPage extends React.Component<> {
                     PLEASE RESET THE GAME FIRST
                 </div>
             )
-        else if (this.state.state === 'Prepare')
+        else if (this.state.state === 'Prepare' || this.state.state === 'PCount')
             return (
-                <div style={{ paddingTop: 0 }}>
+                <div style={{ paddingTop: 0, backgroundColor: '#00ff00' }}>
 
                     <div className={styles.intro}>
-                        <div className="d-flex flex-row justify-content-center" style={
-                            { paddingTop: 190 }
-
-                        }>
-
-                        </div>
-
-                        <div className="d-flex flex-row justify-content-center cameraOutput" style={{ paddingTop: 100, marginLeft: 15 }}>
-                            <div style={{ backgroundColor: 'rgba(52, 52, 52, 0)', width: 500, height: 650, marginRight: 16 }}></div>
-
-                        </div>
-
-                        <div className="d-flex flex-row justify-content-center" style={{ paddingTop: 40, marginLeft: 26 }}>
-                            <div className="d-flex flex-row justify-content-center align-items-center" style={{ backgroundColor: "#FFFFFF", width: 200, height: 90, borderRadius: 20 }}>
-                                <Countdown title="" valueStyle={{ fontSize: 60 }} value={this.state.prepStartTime + 180 * 1000} format="mm:ss" onChange={this.timeChange} />
+                        <div className="d-flex flex-column justify-content-end align-items-center w-100 h-100" >
+                            <div className="d-flex flex-row justify-content-center" style={{ backgroundColor: "#FFFFFF", width: 200, height: 90, borderRadius: 20 }}>
+                                {this.state.state === 'PCount' &&
+                                    <Countdown title="" valueStyle={{fontSize: 60}}
+                                            value={this.state.prepStartTime + 180 * 1000} format="mm:ss"
+                                            onChange={this.timeChange}/>
+                                }
                             </div>
+                            {this.state.state === 'PCount' &&
+                            <CountBar backgroundColor={'#A5DEE4'} color={'#0089A7'} size={700}
+                                      curSeconds={this.state.preStartTimeMs / 1000} maxSeconds={3*60} isVertical={false}/>
+                            }
                         </div>
                     </div>
 
