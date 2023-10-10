@@ -37,5 +37,5 @@ SCORE_INDEX = {
     'RecGeneral': ['Recall a General', -15],
 }
 
-# IP_ADDRESS = "localhost"
-IP_ADDRESS = "10.89.2.207"
+IP_ADDRESS = "localhost"
+# IP_ADDRESS = "10.89.2.208"

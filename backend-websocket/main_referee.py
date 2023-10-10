@@ -3,6 +3,7 @@ import websockets
 from datetime import datetime
 from utils import *
 
+
 class MainReferee:
     def __init__(self, port, logger):
         self.port = port
@@ -20,11 +21,14 @@ class MainReferee:
             print(f"Received: {category} {cmd} {param}")
             if category == "Admin":
                 if cmd == "Reset":
-                    self.logger.create("log-"+datetime.now().strftime('%m-%dT%H:%M:%S'))
-                    if (param == 'None'): 
-                        writeToLog(self.logger, ['Admin', 'Both', 'Prepare', 0])
-                    else: 
-                        writeToLog(self.logger, ['Admin', 'Both', 'Prepare', int(param[0])*10+int(param[1])])
+                    self.logger.create(
+                        "log-"+datetime.now().strftime('%m-%dT%H:%M:%S'))
+                    if (param == 'None'):
+                        writeToLog(self.logger, [
+                                   'Admin', 'Both', 'Prepare', 0])
+                    else:
+                        writeToLog(self.logger, ['Admin', 'Both', 'Prepare', int(
+                            param[0])*10+int(param[1])])
                     processed = 1
                 if cmd == "Game":
                     writeToLog(self.logger, ['Admin', 'Both', 'Game'])
@@ -37,18 +41,19 @@ class MainReferee:
                     processed = 1
             elif category == "Site":
                 if cmd == "Add":
-                    writeToLog(self.logger, ['Site', param[0], param[1], 1 if param[2]=="Soldier" else 3])
+                    writeToLog(self.logger, [
+                               'Site', param[0], param[1], 1 if param[2] == "Soldier" else 3])
                     processed = 1
                 if cmd == "Remove":
-                    writeToLog(self.logger, ['Site', param[0], param[1], -1 if param[2]=="Soldier" else -3])
+                    writeToLog(self.logger, [
+                               'Site', param[0], param[1], -1 if param[2] == "Soldier" else -3])
                     processed = 1
             elif category == "Request":
                 if cmd == "Site":
                     await websocket.send(responseMsg("Response", "Site", self.logger.getLog("", "Site")))
                     processed = 2
-            
+
             if processed == 0:
                 await websocket.send(responseMsg("Ack", "Error", "Invalid Request"))
             elif processed == 1:
                 await websocket.send(responseMsg("Ack", "Success", "Request Processed"))
-    

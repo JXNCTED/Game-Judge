@@ -1,7 +1,9 @@
 # backend with websocket
+
 ## launch
 
 ## Side Referee API - Port 2222, 3333
+
 | Direction | Category | Command | Parameter | Comment |
 | ---- | ---- | ---- | ---- | ---- |
 | Rx | Admin | Ready | None | ready or not for each team |
@@ -12,6 +14,7 @@
 | Tx | Score | Log | log of the score | the response to score request |
 
 ## Main Referee API - Port 4444
+
 | Direction | Category | Command | Parameter | Comment |
 | ---- | ---- | ---- | ---- | ---- |
 | Rx | Admin | Reset | NULL | start the preparation stage |
@@ -24,10 +27,10 @@
 | Tx | Response | Site | status of the sites | the response to Site request |
 
 ## Dashboard API - Port 5555
+
 | Direction | Category | Command | Parameter | Comment |
 | ---- | ---- | ---- | ---- | ---- |
 | Rx | Ack | Command | NULL | the ack of receiving a response |
 | Tx | Response | State | state of the game | return game state (preparation / ongoing / finish) |
 | Tx | Response | Score | log of the score | the response to score request |
 | Tx | Response | Site | status of the sites | the response to Site request |  
-

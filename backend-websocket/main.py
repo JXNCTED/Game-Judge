@@ -12,7 +12,7 @@ async def main():
     refereeB = SideReferee(2222, "Black", logger)
     refereeW = SideReferee(3333, "White", logger)
     # referee  = MainReferee(4444, logger)
-    display  = Display(5555, logger)
+    display = Display(5555, logger)
 
     while True:
         try:
