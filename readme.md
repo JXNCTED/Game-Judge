@@ -1,3 +1,5 @@
+Fork from [https://github.com/Zhang-JK/Game-Judger](https://github.com/Zhang-JK/Game-Judger)
+
 # Game Judge System
 ## Introduction
 This is a judge system for site occupy game. The detail of the game is in the [game rule](./gamerule.pdf)  
