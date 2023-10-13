@@ -1,6 +1,7 @@
 from log import Logger
 from side_referee import SideReferee
 from main_referee import MainReferee
+from result_receiver import ResultReceiver
 from display import Display
 import asyncio
 from datetime import datetime
@@ -13,14 +14,21 @@ async def main():
     refereeW = SideReferee(3333, "White", logger)
     # referee  = MainReferee(4444, logger)
     display = Display(5555, logger)
+    resultReceiverB = ResultReceiver(6666, "Black", logger)
+    resultReceiverW = ResultReceiver(7777, "White", logger)
 
     while True:
         try:
-            task1 = asyncio.create_task(refereeB.connect())
-            task2 = asyncio.create_task(refereeW.connect())
+            taskRefereeB = asyncio.create_task(refereeB.connect())
+            taskRefereeW = asyncio.create_task(refereeW.connect())
             # task3 = asyncio.create_task(referee.connect())
-            task4 = asyncio.create_task(display.connect())
-            await asyncio.gather(task1, task2, task4)
+            taskDisplay = asyncio.create_task(display.connect())
+            taskResultReceiverB = asyncio.create_task(
+                resultReceiverB.connect())
+            taskResultReceiverW = asyncio.create_task(
+                resultReceiverW.connect())
+            await asyncio.gather(taskRefereeB, taskRefereeW, taskDisplay, taskResultReceiverB, taskResultReceiverW)
+
         except KeyboardInterrupt:
             break
 
