@@ -4,24 +4,32 @@ import ScoreLog from "../../components/socrelog/ScoreLog";
 import ServerList from "../../service/utils";
 import TextArea from "antd/es/input/TextArea";
 
-const options=[
-    {
-        value: 1,
-        label: 'A',
-    },
-    {
-        value: 2,
-        label: 'B',
-    },
-    {
-        value: 3,
-        label: 'C',
-    },
-    {
-        value: 4,
-        label: 'D',
-    }
-]
+// const options = [
+//     {
+//         value: 1,
+//         label: '1',
+//     },
+//     {
+//         value: 2,
+//         label: '2',
+//     },
+//     {
+//         value: 3,
+//         label: '3',
+//     },
+//     {
+//         value: 4,
+//         label: '4',
+//     }
+// ]
+
+const options = []
+for (let i = 1; i <= 14; i++) {
+    options.push({
+        value: i,
+        label: i,
+    })
+}
 
 class MajorJudge extends React.Component<> {
     constructor(props) {
@@ -86,7 +94,7 @@ class MajorJudge extends React.Component<> {
         this.setState({
             scoreLoading: true
         })
-        this.ws.send(`Score^Modify^${v.score}+${v.reason===""||v.reason==null?"Manually Change":v.reason}`)
+        this.ws.send(`Score^Modify^${v.score}+${v.reason === "" || v.reason == null ? "Manually Change" : v.reason}`)
     }
 
     onSetRecall = (ind) => {
@@ -126,36 +134,45 @@ class MajorJudge extends React.Component<> {
                             <Card className="m-2" title={<h2>Change State</h2>}>
                                 <Card size='small'>
                                     <Form layout="inline" onFinish={this.onReset}>
-                                        <Form.Item label='Black' name='black' style={{marginLeft: 15}} rules={[{required: true, message: '?说话?'}]}>
+                                        <Form.Item label='Black' name='black' style={{marginLeft: 15}}
+                                                   rules={[{required: true, message: '?说话?'}]}>
                                             <Select style={{width: 80}}>
                                                 {options.map((item) => {
-                                                    return <Select.Option value={item.value}>{item.label}</Select.Option>
+                                                    return <Select.Option
+                                                        value={item.value}>{item.label}</Select.Option>
                                                 })}
                                             </Select>
                                         </Form.Item>
-                                        <Form.Item label='White' name='white' rules={[{required: true, message: '?说话?'}]}>
+                                        <Form.Item label='White' name='white'
+                                                   rules={[{required: true, message: '?说话?'}]}>
                                             <Select style={{width: 80}}>
                                                 {options.map((item) => {
-                                                    return <Select.Option value={item.value}>{item.label}</Select.Option>
+                                                    return <Select.Option
+                                                        value={item.value}>{item.label}</Select.Option>
                                                 })}
                                             </Select>
                                         </Form.Item>
-                                        <Button className="m-2 w-100" type='primary' htmlType='submit' danger loading={this.state.stateLoading} >
+                                        <Button className="m-2 w-100" type='primary' htmlType='submit' danger
+                                                loading={this.state.stateLoading}>
                                             RESET GAME
                                         </Button>
                                     </Form>
                                 </Card>
 
-                                <Button className="m-2 w-100" type='primary' danger loading={this.state.stateLoading} onClick={()=>this.onStateChange('PCount')} >
+                                <Button className="m-2 w-100" type='primary' danger loading={this.state.stateLoading}
+                                        onClick={() => this.onStateChange('PCount')}>
                                     3MIN PREPARE
                                 </Button>
-                                <Button className="m-2 w-100" type='primary' danger loading={this.state.stateLoading} onClick={()=>this.onStateChange('Game')} >
+                                <Button className="m-2 w-100" type='primary' danger loading={this.state.stateLoading}
+                                        onClick={() => this.onStateChange('Game')}>
                                     GAME PAGE
                                 </Button>
-                                <Button className="m-2 w-100" type='primary' danger loading={this.state.stateLoading} onClick={()=>this.onStateChange('Start')} >
+                                <Button className="m-2 w-100" type='primary' danger loading={this.state.stateLoading}
+                                        onClick={() => this.onStateChange('Start')}>
                                     START COUNTING
                                 </Button>
-                                <Button className="m-2 w-100" type='primary' danger loading={this.state.stateLoading} onClick={()=>this.onStateChange('Settle')} >
+                                <Button className="m-2 w-100" type='primary' danger loading={this.state.stateLoading}
+                                        onClick={() => this.onStateChange('Settle')}>
                                     GAME SETTLED
                                 </Button>
                             </Card>
@@ -163,18 +180,19 @@ class MajorJudge extends React.Component<> {
                         <div className='major-change-score' style={{width: 450}}>
                             <Card className="m-2" title={<h2>Modify Score</h2>}>
                                 <div>
-                                    <h5 style={{marginBottom: 30}}>Do <strong>NOT</strong> Recall Soldier or General Here</h5>
                                     <Form onFinish={this.onChangeScore} ref={this.formRef}>
                                         <Form.Item name="score" label="Score" rules={[{required: true}]}>
-                                            <InputNumber />
+                                            <InputNumber/>
                                         </Form.Item>
                                         <Form.Item name="reason" label="Reason">
-                                            <TextArea />
+                                            <TextArea/>
                                         </Form.Item>
-                                        <Button className='m-2' type="primary" htmlType="submit" loading={this.state.scoreLoading}>
+                                        <Button className='m-2' type="primary" htmlType="submit"
+                                                loading={this.state.scoreLoading}>
                                             Submit
                                         </Button>
-                                        <Button className='m-2' type="default" onClick={this.onClear} loading={this.state.scoreLoading}>
+                                        <Button className='m-2' type="default" onClick={this.onClear}
+                                                loading={this.state.scoreLoading}>
                                             Clear
                                         </Button>
                                     </Form>
