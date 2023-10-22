@@ -26,6 +26,7 @@ class SideReferee:
                     writeToLog(self.logger, ['Admin', self.side, 'Ready'])
                     processed = 1
                 if cmd == "Reset":
+                    print("Reset")
                     self.logger.create(
                         "log-"+datetime.now().strftime('%m-%dT%H:%M:%S'))
                     if (param == 'None'):

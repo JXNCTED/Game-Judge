@@ -23,11 +23,11 @@ async def main():
             taskRefereeW = asyncio.create_task(refereeW.connect())
             # task3 = asyncio.create_task(referee.connect())
             taskDisplay = asyncio.create_task(display.connect())
-            taskResultReceiverB = asyncio.create_task(
-                resultReceiverB.connect())
-            taskResultReceiverW = asyncio.create_task(
-                resultReceiverW.connect())
-            await asyncio.gather(taskRefereeB, taskRefereeW, taskDisplay, taskResultReceiverB, taskResultReceiverW)
+            # taskResultReceiverB = asyncio.create_task(
+            #     resultReceiverB.connect())
+            # taskResultReceiverW = asyncio.create_task(
+            #     resultReceiverW.connect())
+            await asyncio.gather(taskRefereeB, taskRefereeW, taskDisplay)
 
         except KeyboardInterrupt:
             break
