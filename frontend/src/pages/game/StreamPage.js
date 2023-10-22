@@ -308,7 +308,6 @@ class StreamPage extends React.Component<> {
             )
         } else // in game
         {
-
             const siteSize = 80;
 
             let whiteTotal = this.state.scoreLog.filter(x => x["Side"] === "White").reduce((a, b) => a + parseInt(b["Score"]), 0)
@@ -338,17 +337,13 @@ class StreamPage extends React.Component<> {
                             <CountBar backgroundColor={'#f0f0f0'} color={"#0F2F89"} size={900}
                                 curSeconds={this.state.gameTime} maxSeconds={300} isVertical={false} />
 
-                            <div className='d-flex flex-row justify-content-around w-100' style={{ paddingTop: 5 }}>
-                                <Site size={siteSize} whiteScore={this.state.site[1]["White"]}
-                                    blackScore={this.state.site[1]["Black"]} fontSizeDivider={2} />
+                            <div className='d-flex flex-column justify-content-center align-items-center'>
                                 <Site size={siteSize} whiteScore={this.state.site[2]["White"]}
                                     blackScore={this.state.site[2]["Black"]} fontSizeDivider={2} />
 
-                                <Site size={siteSize * 1.5} whiteScore={this.state.site[0]["White"]}
+                                <Site size={siteSize * 1.2} whiteScore={this.state.site[0]["White"]}
                                     blackScore={this.state.site[0]["Black"]} fontSizeDivider={1} />
 
-                                <Site size={siteSize} whiteScore={this.state.site[3]["White"]}
-                                    blackScore={this.state.site[3]["Black"]} fontSizeDivider={2} />
                                 <Site size={siteSize} whiteScore={this.state.site[4]["White"]}
                                     blackScore={this.state.site[4]["Black"]} fontSizeDivider={2} />
                             </div>
@@ -387,7 +382,6 @@ class StreamPage extends React.Component<> {
                             <GifEffect animate={this.state.whiteBomb} gif={explode}></GifEffect>
                         </div>
                     </div>
-
                 </div>
             )
         }

@@ -1,4 +1,5 @@
-const backendIP = '10.89.2.207';
+// const backendIP = '10.89.2.207';
+const backendIP = 'localhost';
 
 const ServerList = {
     'view': `ws://${backendIP}:5555`,
